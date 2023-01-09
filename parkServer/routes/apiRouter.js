@@ -9,11 +9,11 @@ console.log(key)
 // const apiModel = require('../models/api')
 
 apiRouter.get("/", (req, res, next) => {
-    const {q, statecode} = req.query
+    const {q, stateCode} = req.query
     console.log(req.query)
     // const query = `q=${req.params.q}&` || ""
     // console.log(query)
-    axios.get(`${baseUrl}${statecode ? `stateCode=${statecode}` : ""}${q? `q=${q}&` : ""}${key}`)
+    axios.get(`${baseUrl}${stateCode ? `stateCode=${stateCode}` : ""}${q? `q=${q}&` : ""}${key}`)
         .then ((parks) => res.json(parks.data))
         .catch (err => next(err))
 })

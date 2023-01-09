@@ -76,6 +76,7 @@ function ParksProvider(props) {
   ]
 
   function handleSubmit(selections) {
+    console.log(selections)
     axios.request({
       method: "get",
       url: "http://localhost:9000/nps",  
@@ -84,7 +85,7 @@ function ParksProvider(props) {
     .then(res => {setCollection(res.data.data)})
     .catch(error => console.dir(error))
   }
-  console.log(collection)
+  console.log(parksArray)
   
   // useEffect(() => {
   //   axios.get(`https://developer.nps.gov/api/v1/${selections.isPreRecorded ? "multimedia/videos" : "webcams"}?${selections.stateCode === "" ? "" : selections.stateCode}${selections.Parks === "" ? "" : `q=${selections.Parks}&`}api_key=ch5ZJCcqmTafvaWiR3oUP2lf6vBHo2RfWxPzNoe3`)
@@ -93,18 +94,19 @@ function ParksProvider(props) {
   // }, [])
   
   
-  // useEffect(() => {
-  //   let random = Math.floor(Math.random() * 50 + 1)
-  //   console.log(random)
-  //   function getParks() {
-  //     axios.get(`https://developer.nps.gov/api/v1/parks?${selections.stateCode === '' ? `statecode=${stateCodes[random].abbreviation}&` : selections.stateCode}limit=10&api_key=ch5ZJCcqmTafvaWiR3oUP2lf6vBHo2RfWxPzNoe3`)
-  //     // .then(res => setImageArray(res.data.data[0].Parks))
-  //             // .then(res => setImageArray(res.data.data.map(image => image.Parks[0])))
-  //             .then(res => setParksArray(res.data.data))
-  //             .catch(err => console.log(err))
-  //   }
-  //   getParks()  
-  //     }, [])  
+  useEffect(() => {
+    let random = Math.floor(Math.random() * 50 + 1)
+    console.log(random)
+    function getParks() {
+      axios.get(`http://localhost:9000/nps`)
+      // axios.get(`https://developer.nps.gov/api/v1/parks?${selections.stateCode === '' ? `statecode=${stateCodes[random].abbreviation}&` : selections.stateCode}limit=10&api_key=ch5ZJCcqmTafvaWiR3oUP2lf6vBHo2RfWxPzNoe3`)
+      // .then(res => setImageArray(res.data.data[0].Parks))
+              // .then(res => setImageArray(res.data.data.map(image => image.Parks[0])))
+              .then(res => setParksArray(res.data.data))
+              .catch(err => console.log(err))
+    }
+    getParks()  
+      }, [])  
 
   
     return (

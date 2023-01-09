@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { SearchContext } from "./Context/SearchContext"
 import { ParksContext } from "./Context/ParksContext"
+import "./styles/Search.css"
 // import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 
 

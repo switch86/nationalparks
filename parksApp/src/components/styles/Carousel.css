@@ -1,0 +1,54 @@
+/* Image Carousel styles */
+
+/* .CarouselContainer {
+  display: grid;
+  grid-template-columns: repeat(10, 20rem);
+  grid-template-rows: 15rem;
+  background-color: gray;
+  height: auto;
+  scroll-behavior: auto;
+  overflow-x: hidden;
+
+}
+ .CarouselContainer * {
+  justify-content: center;
+} 
+.Carousel .Details {
+  background: rgba(203, 203, 203, 0.505);
+  width: 5rem;
+  font-size: x-small;
+  height: 1.5rem;
+  border: none;
+  position: relative;
+  bottom: .01rem;
+  right: -.08rem;
+  z-index: 3;
+} */
+.Carousel {
+    width: 30rem;
+    align-self: center;
+  }
+  /* .DetailsPanel {
+    background-color: rgba(254, 254, 254, 0.773);
+    margin-right: 2.05rem;
+    padding: .5rem;
+    height: 10rem;
+    width: 20rem;
+    border-radius: 10px;
+    font-size: small;
+    z-index: 2;
+  }
+  .Carousel h4 {
+    top: 4rem;
+  }
+  .Carousel p {
+    bottom: 7rem;
+  }  */
+  
+  
+  
+  @media screen and (max-width:750px) {
+    .Carousel, .Carousel * {
+      display: none;
+    }
+  }

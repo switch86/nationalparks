@@ -9,6 +9,7 @@ import Welcome from "./pages/Welcome"
 import Video from "./pages/Video"
 import Auth from "./pages/Auth"
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(props) {
   const {token} = useContext(UserContext)
