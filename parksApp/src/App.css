@@ -1,0 +1,188 @@
+body * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Welcome Page Styles  */
+.selectionForm {
+  display: flex;
+  flex-direction: column;
+}
+.selectionForm input {
+   width: 86%;
+}
+.selectionForm select {
+  width: 95%;
+}
+/* .selectionForm select {
+  width: 78%
+} */
+.selectionForm select, .selectionForm input, .selectionForm label { 
+  margin: .5rem;
+  padding: 10px;
+  font-weight: 600;
+  /* background: rgba(128, 128, 128, 0.222); */
+  color: black;
+}
+body {
+  background-image: url("https://www.nps.gov/common/uploads/structured_data/8DE774D1-CB22-37F2-D826E3F0A73D303A.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.welcome {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* align-items: center; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.welcome div {
+  grid-column: 1/3;
+}
+.selectionForm {
+  display: grid;
+  font-weight: 500;
+  grid-template-columns: 1fr 1fr;;
+  background-color: rgba(44, 145, 170, 0.636);
+  padding: 1rem;
+  border-radius: 5px;
+}
+.searchButton {
+  background: rgba(200, 140, 210, 0.734);
+  font-weight: 300;
+  font-size: 3rem;
+  border-radius: 10px;
+  border: none;
+}
+@media screen and (min-width: 1050px) {
+  .welcome {
+    margin: 0 20%;
+  }
+  .selectionForm {
+    width: auto; 
+  }
+  .searchButton {
+    width: 100%;
+    margin: 20px;
+    height: 200px;
+  }
+  
+}
+@media screen and (max-width: 1050px) {
+  .selectionForm {
+    grid-column: 1/3;
+    margin: 3px;
+    width: 100%;
+  }
+  .searchButton {
+    grid-column: 1/3;
+    margin-top: 20px;
+    width: 200%;
+    height: 4rem;
+  }
+}
+@media screen and (max-width: 750px) {
+  .selectionForm {
+    margin: 0 5px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    /* padding-left: 2rem; */
+  }
+  .searchButton {
+    width: 200%;
+    /* margin-left: 2rem; */
+  }
+}
+/* Header Styles */
+header {
+  background: rgba(210, 180, 140, 0.726);
+  border: 2px black solid;
+}
+header a {
+  padding: 2rem;
+}
+header * {
+  padding: 0 5px ;
+}
+.NavBar {
+  border-bottom: 2px black solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+header h1 {
+  text-align: center;
+}
+@media screen and (max-width: 750px) {
+  header {
+    background-color: lightgrey;
+  }
+  .NavBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+  }
+  header h1 {
+    grid-column: 1/3;
+  }
+  header a {
+    padding: 1rem;
+  }
+}
+/* Image Carousel styles*/
+
+/* .CarouselContainer {
+  display: grid;
+  grid-template-columns: repeat(10, 20rem);
+  grid-template-rows: 15rem;
+  background-color: gray;
+  height: auto;
+  scroll-behavior: auto;
+  overflow-x: hidden;
+
+}
+/* .CarouselContainer * {
+  justify-content: center;
+} */
+/* .Carousel .Details {
+  background: rgba(203, 203, 203, 0.505);
+  width: 5rem;
+  font-size: x-small;
+  height: 1.5rem;
+  border: none;
+  position: relative;
+  bottom: .01rem;
+  right: -.08rem;
+  z-index: 3;
+}
+.Carousel {
+  background-size:cover;
+  background-repeat: no-repeat;
+  display:flex;
+  flex-direction: column;
+  align-content: flex-end;
+}
+.DetailsPanel {
+  background-color: rgba(254, 254, 254, 0.773);
+  margin-right: 2.05rem;
+  padding: .5rem;
+  height: 10rem;
+  width: 20rem;
+  border-radius: 10px;
+  font-size: small;
+  z-index: 2;
+}
+.Carousel h4 {
+  top: 4rem;
+}
+.Carousel p {
+  bottom: 7rem;
+} */ 
+
+
+
+@media screen and (max-width:750px) {
+  .CarouselContainer, .CarouselContainer * {
+    display: none;
+  }
+}

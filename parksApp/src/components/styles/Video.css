@@ -1,0 +1,55 @@
+.videoWindow {
+    align-self: center;
+    width: 75%;
+    height: 550px;
+    max-width: 900px;
+    border: none;
+    border-radius: 3px;
+}
+.videoPage {
+    display:flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.443);
+    margin: 1rem 10rem;
+    border-radius: 10px;
+    border: rgb(79, 79, 79) solid 2px;
+}
+.videoContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 20rem)
+}
+.Image {
+    background-color: grey;
+    margin: 1em;
+    padding: 0 2rem 1rem 2rem;
+    width: 20rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Image img {
+    position: absolute;
+    margin-top: 2rem;
+    /* top: -1rem; */
+    width: 15rem;
+    max-height: 10rem;
+}
+h1 {
+    margin-left: 5rem;
+}
+.text {
+    align-self: center;
+    background-color: rgba(255, 255, 255, 0.443);
+    margin: 0 1rem 1rem 1rem;
+    padding: 1rem; 
+    border-radius: 10px;
+    border: darkgray solid 2px;
+}
+span {
+    font-weight: 700;
+}
+p{
+    padding: 0 1rem;
+}
