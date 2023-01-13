@@ -1,57 +1,61 @@
-// import axios from "axios"
-// import { useEffect } from "react"
-import { useContext} from "react"
+import { useContext, useState} from "react"
 import {Link} from "react-router-dom"
 import Carousel from 'react-bootstrap/Carousel'
-// import { SearchContext } from "./Context/SearchContext"
+import Image from 'react-bootstrap/Image'
 import { ParksContext } from "./Context/ParksContext"
 import "./styles/Carousel.css"
 
 
 export default function ImageCarousel() {
+    // import parksArray
     const {parksArray} = useContext(ParksContext)
-    // const images = imagesArray.map(park => park.images[0])
-    console.log(parksArray)
-    // const [show, setShow] = useState(false)
-    // function onClick() {
-    //     setShow(!show)
-    // }
-    // const hover = {
-    //     display: show ? "block" : "none"
-    // }
-    // const img = {
-    //     backgroundImage: `url(${url})`
-        
-    // }
-    // const img = images[0]
+
+    // controls caption hover effect 
+    const [show, setShow] = useState(false)
+    function hoverShow() {
+        setShow(!show)
+    }
+    const hover = {
+        display: show ? "block" : "none"
+    }
+
+
+
+    // map through parksArray and return a carousel item for each park 
     const html = parksArray.map(park => {
     const image = park.images[0]    
     return (
-
         <Carousel.Item key={park.parkCode}>
             <Link to={`/parks/${park.parkCode}`}>
                 <img 
-                    className="d-block w-100"
+                    className="d-block w-100 CarouselImage"
                     src={image.url}
                     alt={image.altText}
+                    // fluid="true"
                     />
-                <Carousel.Caption>
-                    <h5>{image.title}</h5>
-                    <h4>{park.fullName}</h4>
-                    <span>Photographer Credit: {image.credit}</span>
-                    <p>{image.caption}</p>
+                <Carousel.Caption style={hover}>
+                    {/* <h5>{image.title}</h5> */}
+                        <h4>{park.fullName}</h4>
+                        <span>Photographer Credit: {image.credit}</span>
+                    {/* <p>{image.caption}</p> */}
                 </Carousel.Caption>
             </Link>
             </Carousel.Item>
 )    
-    })
-    
+})
 
-    return (
-        <div className="CarouselContainer"> 
-        <Carousel variant="light" interval="2000" className="Carousel">
+// return carousel with all carousel items from above
+return (
+    <div className="CarouselContainer" > 
+        <div className="Carousel" onMouseEnter={hoverShow} onMouseLeave={hoverShow}>
+        <Carousel  
+            interval="2000" 
+            fade="true"
+            >
             {html}
         </Carousel>
+        <fade/>
+        </div>
         </div>
     )
 }

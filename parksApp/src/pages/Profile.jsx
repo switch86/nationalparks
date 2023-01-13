@@ -1,5 +1,6 @@
 import {useContext} from "react"
 import { UserContext } from "../components/Context/UserContext"
+import Carousel from "../components/Carousel"
 
 export default function Profile() {
     const { user} = useContext(UserContext)
@@ -7,6 +8,9 @@ export default function Profile() {
     return (
         <>
         <h1>Welcome {user.username}!</h1>
+        <section className="topSection">
+                <Carousel />
+        </section>
         </>
     )
 }
