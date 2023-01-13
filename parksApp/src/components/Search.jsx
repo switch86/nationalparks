@@ -6,11 +6,9 @@ import "./styles/Search.css"
 
 
 export default function Search(props) {
-    const {
-        stateCodes}
-  = useContext(SearchContext)
+    const {stateCodes, selections, setSelections}  = useContext(SearchContext)
     const {handleSubmit} = useContext(ParksContext)
-    const [selections, setSelections] = useState({})
+    // const [selections, setSelections] = useState({})
     const stateCodeHtml = stateCodes.map((state, index) => {
         return (
                 <option key={index} value={state.abbreviation}>{state.abbreviation} - {state.name}</option>
@@ -40,7 +38,7 @@ export default function Search(props) {
             </div>
             <form className="selectionForm">
                 <label htmlFor="stateCode">State Selection: </label>
-                <select value={selections.stateCode || ""} name="stateCode" onChange={handleChange}>
+                <select value={selections.stateCode ? selections.stateCode : ""} name="stateCode" onChange={handleChange}>
                     {stateCodeHtml}
                 </select>
                 <label htmlFor="q">Search Topic: </label>

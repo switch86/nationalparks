@@ -2,18 +2,18 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const parkSchema = new Schema({
-  title: {
+  fullName: {
     type: String,
     required: true
   },
   description: {
     type: String
   },
-  completed: {
-    type: Boolean,
-    default: false
+  parkCode: {
+    type: String,
+    required: true,
   },
-  imgUrl: {
+  url: {
     type: String
   },
   user: {

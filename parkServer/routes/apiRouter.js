@@ -13,7 +13,7 @@ apiRouter.get("/", (req, res, next) => {
     console.log(req.query)
     // const query = `q=${req.params.q}&` || ""
     // console.log(query)
-    axios.get(`${baseUrl}${stateCode ? `stateCode=${stateCode}` : ""}${q? `q=${q}&` : ""}${key}`)
+    axios.get(`${baseUrl}${stateCode ? `stateCode=${stateCode}&` : ""}${q? `q=${q}&` : ""}${key}`)
         .then ((parks) => res.json(parks.data))
         .catch (err => next(err))
 })

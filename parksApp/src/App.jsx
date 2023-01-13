@@ -6,7 +6,7 @@ import Profile from "./pages/Profile"
 import Parks from "./pages/Parks"
 import DisplayPage from './pages/DisplayPage';
 import Welcome from "./pages/Welcome"
-import Video from "./pages/Video"
+// import Video from "./pages/Video"
 import Auth from "./pages/Auth"
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,7 +22,7 @@ function App(props) {
             <Route path="/parks/:parkId" element={token ? <Parks /> : <Auth />}></Route>
             <Route path="/welcome" element={<Welcome />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
-            <Route path="/videos/:videoId" element={<Video />}></Route>
+            {/* <Route path="/videos/:videoId" element={<Video />}></Route> */}
             {/* <Route path="/livestreams" element={<LiveStreams />}></Route> */}
           </Routes>
       </div>

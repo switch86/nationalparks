@@ -53,7 +53,6 @@ return (
             >
             {html}
         </Carousel>
-        <fade/>
         </div>
         </div>
     )

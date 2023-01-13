@@ -1,0 +1,44 @@
+
+.Cards {
+    display: grid;
+    grid-template-columns: repeat(auto, 1fr);
+    grid-template-rows: repeat(auto, 200px);
+}
+.Cards * {
+    color: black;
+    text-decoration: none;
+}
+.Title {
+    font-size:medium;
+    font-weight: 600;
+    background:rgba(245, 245, 245, 0.84);
+    position: relative;
+    /* top: -1.5rem; */
+    z-index: 1;
+}
+.Description {
+    font-size:small;
+    background:rgba(245, 245, 245, 0.84);
+    position: relative;
+    /* top: -2.7rem; */
+    z-index: 1;
+}
+
+.Card {
+    background: rgba(245, 245, 245, 0.84);
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+.imageContainer, .Image{ 
+    width: auto;
+    max-height: 200px;
+}
+.Image {
+    /* width:min-content; */
+    position: relative;
+}
+h1, h3 {
+    font-size: .1em;
+}
