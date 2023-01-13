@@ -49,8 +49,7 @@ return (
     <div className="CarouselContainer" > 
         <div className="Carousel" onMouseEnter={hoverShow} onMouseLeave={hoverShow}>
         <Carousel  
-            interval="2000" 
-            fade="true"
+            interval="2000"
             >
             {html}
         </Carousel>

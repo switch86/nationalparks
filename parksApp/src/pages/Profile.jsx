@@ -6,11 +6,13 @@ export default function Profile() {
     const { user} = useContext(UserContext)
     console.log(user)
     return (
-        <>
-        <h1>Welcome {user.username}!</h1>
+        <div className="Profile">
         <section className="topSection">
-                <Carousel />
+            <div className="ProfileDetails">
+                <h1>Welcome {user.username}!</h1>
+            </div>
+            <Carousel />
         </section>
-        </>
+        </div>
     )
 }
