@@ -6,21 +6,14 @@ const parkSchema = new Schema({
     type: String,
     required: true
   },
-  description: {
-    type: String
-  },
   parkCode: {
     type: String,
     required: true,
   },
-  url: {
-    type: String
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true
-  }
+  likes: {
+    type: Number,
+    default: 0
+}
 })
 
 module.exports = mongoose.model("Park", parkSchema)

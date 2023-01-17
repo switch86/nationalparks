@@ -1,11 +1,12 @@
 import {useContext} from "react"
 import { UserContext } from "../components/Context/UserContext"
 import Carousel from "../components/Carousel"
-import DisplayPage from "./DisplayPage"
+import DisplayPage from "../components/DisplayPage"
 
 export default function Profile() {
     const { user} = useContext(UserContext)
-    console.log(user)
+    
+    console.log(user.parks)
     return (
         <div className="Profile">
         <section className="topSection">

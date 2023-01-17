@@ -1,7 +1,7 @@
 import React, {useContext} from "react" 
 import Carousel from "../components/Carousel"
 import Search from "../components/Search"
-import DisplayPage from "./DisplayPage"
+import DisplayPage from "../components/DisplayPage"
 import {ParksContext} from "../components/Context/ParksContext"
 import "../components/styles/Welcome.css"
 

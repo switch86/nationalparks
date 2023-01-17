@@ -1,7 +1,7 @@
 
 .Cards {
     display: grid;
-    grid-template-columns: repeat(auto, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(auto, 200px);
 }
 .Cards * {
@@ -13,7 +13,7 @@
     font-weight: 600;
     background:rgba(245, 245, 245, 0.84);
     position: relative;
-    /* top: -1.5rem; */
+    top: -12.5rem;
     z-index: 1;
 }
 .Description {
@@ -34,9 +34,10 @@
 .imageContainer, .Image{ 
     width: auto;
     max-height: 200px;
+    min-height: 200px;
 }
 .Image {
-    /* width:min-content; */
+    width: 100%;
     position: relative;
 }
 h1, h3 {

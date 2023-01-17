@@ -5,7 +5,7 @@ import "./styles/Search.css"
 // import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 
 
-export default function Search(props) {
+export default function Search() {
     const {stateCodes, selections, setSelections}  = useContext(SearchContext)
     const {handleSubmit} = useContext(ParksContext)
     // const [selections, setSelections] = useState({})
