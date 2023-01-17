@@ -39,6 +39,7 @@ function signup(credentials) {
                 const {user, token} = res.data
                 localStorage.setItem("token", token)
                 localStorage.setItem("user", JSON.stringify(user))
+                getSavedParks()
                 setUserState(prev => ({
                 ...prev,
                 user,
@@ -55,9 +56,27 @@ function signup(credentials) {
             parks: []
         })
     }
-    function savePark(newPark) {
-        userAxios.post('http://localhost:9000/api/parks', newPark) 
-            .then(res => console.log(res))
+    function likePark(newPark) {
+        // if (userState.parks.includes(park => park.parkCode === newPark.parkCode)) {
+        //     userAxios.put(`http://localhost:9000/api/parks/${newPark.parkCode}`)
+        //         .then(res => console.log(res))
+        //         .catch(err => console.log(err))
+        // } else {
+            userAxios.post(`http://localhost:9000/api/parks/`, newPark) 
+                .then(res => setUserState(prev => ({
+                    ...prev, 
+                    parks: [res.data],
+                    likes: prev.likes +1,
+                })))
+                .catch(err => console.log(err))
+        }
+    
+    function getSavedParks() {
+        userAxios.get('http://localhost:9000/api/parks/user')
+            .then(res => setUserState(prev => ({
+                ...prev,
+                parks: [res.data]
+            })))
             .catch(err => console.log(err))
     }
     return (
@@ -67,7 +86,8 @@ function signup(credentials) {
             signup,
             login,
             logout,
-            savePark
+            likePark, 
+            getSavedParks
         }}>
             {props.children}
         </UserContext.Provider>

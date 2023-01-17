@@ -1,10 +1,12 @@
 import {useContext} from "react"
 import { UserContext } from "../components/Context/UserContext"
 import Carousel from "../components/Carousel"
+import DisplayPage from "../components/DisplayPage"
 
 export default function Profile() {
     const { user} = useContext(UserContext)
-    console.log(user)
+    
+    console.log(user.parks)
     return (
         <div className="Profile">
         <section className="topSection">
@@ -13,6 +15,14 @@ export default function Profile() {
             </div>
             <Carousel />
         </section>
+        {user.parks?
+        <section className="bottomSection">
+            <DisplayPage 
+            collection={user.parks}/>
+        </section>
+        :
+        <h1>You can save and view your favorite parks here!</h1>    
+    }
         </div>
     )
 }

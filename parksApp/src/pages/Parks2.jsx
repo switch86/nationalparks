@@ -4,12 +4,13 @@ import React from "react"
 // import VideoEmbed from "../assets/VideoEmbed"
 import { useContext } from "react"
 import { ParksContext } from "../components/Context/ParksContext"
+import { UserContext } from "../components/Context/UserContext"
 import {useParams} from "react-router-dom"
-import "../components/styles/Video.css"
+// import "../components/styles/Video.css"
 
 export default function Video(props) {
-    const {videoId} = useParams()
-    const {collection, setVideo} = useContext(ParksContext)
+    const {parkId} = useParams()
+    const {park} = useContext(ParksContext)
     const {savePark} = useContext(UserContext)
     const video = collection.find(item => item.id === videoId)
     setVideo(video)
@@ -18,8 +19,8 @@ export default function Video(props) {
         savePark(videoId)
     } 
 
-    console.log(video)
-    console.log(videoId)
+    console.log(park)
+    console.log(parkId)
     return (
         <div className="videoPage">
             <h1>{video.title}</h1>
