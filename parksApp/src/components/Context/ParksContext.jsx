@@ -117,7 +117,8 @@ function ParksProvider(props) {
           video, 
           setVideo,
           handleSubmit,
-          setPark
+          setPark,
+          park
         }}>
           {props.children}
         </ParksContext.Provider>

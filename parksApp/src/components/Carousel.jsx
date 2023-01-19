@@ -46,14 +46,14 @@ export default function ImageCarousel() {
 
 // return carousel with all carousel items from above
 return (
-    <div className="CarouselContainer" > 
+    <div className="CarouselContainer" >
+        <h1>Click the images to learn more about the parks below!</h1> 
         <div className="Carousel" onMouseEnter={hoverShow} onMouseLeave={hoverShow}>
         <Carousel  
             interval="2000"
             >
             {html}
         </Carousel>
-        <fade/>
         </div>
         </div>
     )
