@@ -1,4 +1,5 @@
 const express = require("express")
+const park = require("../models/park.js")
 const parkRouter = express.Router()
 const Park = require('../models/park.js')
 
@@ -27,15 +28,34 @@ parkRouter.get('/user', (req, res, next) => {
 
 // Add new park
 parkRouter.post("/", (req, res, next) => {
-  req.body.user = req.auth._id
-  const newpark = new Park(req.body)
-  newpark.save((err, savedpark) => {
-    if(err){
-      res.status(500)
-      return next(err)
-    }
-    return res.status(201).send(savedpark)
-  })
+  let isLiked = Park.exists({parkCode: req.body.parkCode})
+  console.log(isLiked)
+  if (isLiked) {
+    Park.findOneAndUpdate(
+      { _id: isLiked._id, user: req.auth._id },
+      req.body,
+      { new: true },
+      (err, updatedpark) => {
+        if(err){
+          res.status(500)
+          return next(err)
+        }
+        console.log(updatedpark)
+        return res.status(201).send(updatedpark)
+      }
+    )
+  }
+  else {
+    req.body.user = req.auth._id
+    const newpark = new Park(req.body)
+    newpark.save((err, savedpark) => {
+      if(err){
+        res.status(500)
+        return next(err)
+      }
+      return res.status(201).send(savedpark)
+    })
+  }
 })
 
 // Delete park
@@ -63,6 +83,7 @@ parkRouter.put("/:parkId", (req, res, next) => {
         res.status(500)
         return next(err)
       }
+      console.log(updatedpark)
       return res.status(201).send(updatedpark)
     }
   )

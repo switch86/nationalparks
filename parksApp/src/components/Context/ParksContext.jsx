@@ -85,7 +85,7 @@ function ParksProvider(props) {
     .then(res => {setCollection(res.data.data)})
     .catch(error => console.dir(error))
   }
-  console.log(parksArray)
+  console.log(collection)
   
   // useEffect(() => {
   //   axios.get(`https://developer.nps.gov/api/v1/${selections.isPreRecorded ? "multimedia/videos" : "webcams"}?${selections.stateCode === "" ? "" : selections.stateCode}${selections.Parks === "" ? "" : `q=${selections.Parks}&`}api_key=ch5ZJCcqmTafvaWiR3oUP2lf6vBHo2RfWxPzNoe3`)

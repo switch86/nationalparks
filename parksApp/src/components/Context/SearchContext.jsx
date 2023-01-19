@@ -76,7 +76,7 @@ function SearchProvider(props) {
   //   query: ""
   // })
   //set empty state for user video selection data
-  const [videoSelection, setVideoSelection] = useState()
+  const [selections, setSelections] = useState({})
   // const [display, setDisplay] = useState("main")
   
   // function handleSubmit() {
@@ -95,10 +95,10 @@ function SearchProvider(props) {
         <SearchContext.Provider value={{
           // collection: collection,
           stateCodes: stateCodes,
-          // selections: selections,
+          selections: selections,
           // display: display,
-          videoSelection: videoSelection,
-          // setSelections: setSelections,
+          // videoSelection: videoSelection,
+          setSelections: setSelections,
           // setDisplay: setDisplay,
           // imageArray:imageArray,
           setCount:setCount
