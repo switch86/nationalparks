@@ -5,11 +5,15 @@ import { ParksContext } from './Context/ParksContext';
 export default function Like(props) {
     const {park, setPark} = useContext(ParksContext)
     const {parks, likePark} = useContext(UserContext)
+    const [likes, setLikes] = useState("");
+    const [isClicked, setIsClicked] = useState();
     // console.log(parks)
-    const match = parks.includes(park.parkCode) 
-    const [likes, setLikes] = useState(park.likes || 0 );
-    const [isClicked, setIsClicked] = useState(match);
     
+    if (park) {
+        const match = parks.includes(park.parkCode)
+        setLikes(park.likes)
+        setIsClicked(match)
+    }
     const handleClick = () => {
         if (isClicked) {
             setLikes(prev => prev - 1)
@@ -31,7 +35,7 @@ export default function Like(props) {
 
     return (
         <button className={ `like-button ${isClicked && 'liked'}` } onClick={ handleClick }>
-        <span className="likes-counter">{ `Like | ${likes}` }</span>
+        <span className="likes-counter">{ `Like | ${likes || 0}` }</span>
         </button>
     );
 };

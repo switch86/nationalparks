@@ -20,7 +20,7 @@ export default function ImageCarousel() {
     }
 
 
-
+    console.log(parksArray)
     // map through parksArray and return a carousel item for each park 
     const html = parksArray.map(park => {
     const image = park.images[0]    
@@ -31,7 +31,7 @@ export default function ImageCarousel() {
                     className="d-block w-100 CarouselImage"
                     src={image.url}
                     alt={image.altText}
-                    // fluid="true"
+    
                     />
                 <Carousel.Caption style={hover}>
                     {/* <h5>{image.title}</h5> */}
@@ -47,7 +47,6 @@ export default function ImageCarousel() {
 // return carousel with all carousel items from above
 return (
     <div className="CarouselContainer" >
-        <h1>Click the images to learn more about the parks below!</h1> 
         <div className="Carousel" onMouseEnter={hoverShow} onMouseLeave={hoverShow}>
         <Carousel  
             interval="2000"

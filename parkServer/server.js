@@ -16,8 +16,8 @@ mongoose.connect(
 )
 
 app.use('/auth/', require('./routes/authRouter.js'))
-app.use('/nps', require('./routes/apiRouter.js'))
-app.use('/api', jwt({secret: process.env.SECRET, algorithms: ['HS256']}))
+app.use('/nps/', require('./routes/apiRouter.js'))
+app.use('/api/', jwt({secret: process.env.SECRET, algorithms: ['HS256']}))
 app.use('/api/parks', require('./routes/parkRouter.js'))
 
 app.use((err, req, res, next) => {

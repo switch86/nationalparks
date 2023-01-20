@@ -9,7 +9,7 @@ import { ParksContext } from "./Context/ParksContext"
 import Like from "./Like"
 
 function DisplayPage(props) {
-    const {setPark} = useContext(ParksContext)
+    const {setPark, collection} = useContext(ParksContext)
     const {savePark} = useContext(UserContext)
     function handleClick(park) {
         console.log(park)
@@ -19,9 +19,9 @@ function DisplayPage(props) {
         console.log(park)
         savePark(park)
     }
-    const imageHTML = props.collection.map((park) => {
+    console.log(collection)
+    const imageHTML = collection.map((park) => {
         const {parkCode, images, description, id, fullName} = park
-        
     //     return {
     //         key: park.id,
     //         id: park.parkCode,  

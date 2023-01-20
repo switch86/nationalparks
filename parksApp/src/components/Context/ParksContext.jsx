@@ -1,5 +1,5 @@
 import axios from "axios"
-import {React, createContext, useState, useEffect, useContext } from "react"
+import {React, createContext, useState, useEffect} from "react"
 
 
 
@@ -9,7 +9,7 @@ function ParksProvider(props) {
 
   // set empty state for image carousel 
   const [parksArray, setParksArray] = useState([])
-  const [park, setPark] = useState({})
+  const [park, setPark] = useState()
   const [collection, setCollection] = useState([])
   const [video, setVideo] = useState([])
   const stateCodes = [
@@ -74,38 +74,56 @@ function ParksProvider(props) {
    { name: 'WISCONSIN', abbreviation: 'WI'},
    { name: 'WYOMING', abbreviation: 'WY' }
   ]
-
+// get parks based on parameters saved in selections 
   function handleSubmit(selections) {
     console.log(selections)
     axios.request({
       method: "get",
-      url: "http://localhost:9000/nps",  
+      url: "http://localhost:9000/nps/",  
       params: {...selections}
     })
     .then(res => {setCollection(res.data.data)})
     .catch(error => console.dir(error))
   }
+  //get parks based on URL
+  function handleSelect(selections) {
+    console.log(selections)
+    axios.request({
+      method: "get",
+      url: "http://localhost:9000/nps/",  
+      params: {...selections}
+    })
+    .then(res => {
+      setPark(res.data.data[0])
+    })
+    .catch(error => console.dir(error))
+  }
   console.log(collection)
   
-  // useEffect(() => {
-  //   axios.get(`https://developer.nps.gov/api/v1/${selections.isPreRecorded ? "multimedia/videos" : "webcams"}?${selections.stateCode === "" ? "" : selections.stateCode}${selections.Parks === "" ? "" : `q=${selections.Parks}&`}api_key=ch5ZJCcqmTafvaWiR3oUP2lf6vBHo2RfWxPzNoe3`)
-  //   .then(res => {setCollection(res.data.data)})
-  //   .catch(error => console.log(error))
-  // }, [])
   
+  function getPark(parkId) {
+    console.log(parkId)
+      axios.request({
+        method: "get",
+        url: "http://localhost:9000/nps/park",  
+        params: {parkCode: parkId}
+      })
+        .then(res => console.log(res.data.data))
+        .catch(error => console.log(error))
+    }
+
   
+  // get Parks Array - these are used in the carousel
   useEffect(() => {
-    let random = Math.floor(Math.random() * 50 + 1)
-    console.log(random)
-    function getParks() {
-      axios.get(`http://localhost:9000/nps`)
-      // axios.get(`https://developer.nps.gov/api/v1/parks?${selections.stateCode === '' ? `statecode=${stateCodes[random].abbreviation}&` : selections.stateCode}limit=10&api_key=ch5ZJCcqmTafvaWiR3oUP2lf6vBHo2RfWxPzNoe3`)
-      // .then(res => setImageArray(res.data.data[0].Parks))
-              // .then(res => setImageArray(res.data.data.map(image => image.Parks[0])))
-              .then(res => setParksArray(res.data.data))
+    function getAllParks() {
+      axios.get(`http://localhost:9000/nps/`)
+              .then(res => {
+                setParksArray(res.data.data)
+                setCollection(res.data.data)
+              })
               .catch(err => console.log(err))
     }
-    getParks()  
+    getAllParks()  
       }, [])  
 
   
@@ -117,7 +135,9 @@ function ParksProvider(props) {
           video, 
           setVideo,
           handleSubmit,
+          handleSelect,
           setPark,
+          getPark,
           park
         }}>
           {props.children}

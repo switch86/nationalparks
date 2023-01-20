@@ -1,5 +1,5 @@
-import axios from "axios"
-import {React, createContext, useState, useEffect } from "react"
+// import axios from "axios"
+import {React, createContext, useState} from "react"
 
 const SearchContext = createContext()
 
@@ -68,41 +68,17 @@ function SearchProvider(props) {
    { name: 'WYOMING', abbreviation: 'WY' }
   ]
   const [count, setCount] = useState(0)
-  // set empty array as state for the imported data
 
-  // set state for user set parameters for the api request 
-  // const [selections, setSelections] = useState({
-  //   stateCode: "",
-  //   query: ""
-  // })
-  //set empty state for user video selection data
+  //set empty state for user selections for api call 
   const [selections, setSelections] = useState({})
-  // const [display, setDisplay] = useState("main")
-  
-  // function handleSubmit() {
-  //   setCount(count => count + 1)
-  //   axios.get("http://localhost:9000/nps/videos")
-  //     .then(res => {
-  //       setCollection(res.data)
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
-  // console.log(selections)
   
     return (
       <>
         <SearchContext.Provider value={{
-          // collection: collection,
           stateCodes: stateCodes,
           selections: selections,
-          // display: display,
-          // videoSelection: videoSelection,
           setSelections: setSelections,
-          // setDisplay: setDisplay,
-          // imageArray:imageArray,
-          setCount:setCount
-
+          // setCount:setCount
         }}>
           {props.children}
         </SearchContext.Provider>
