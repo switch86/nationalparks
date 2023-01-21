@@ -8,9 +8,11 @@ export default function AuthForm(props){
     inputs: {
       username, 
       password
-    } 
+    },
+    errMsg 
   } = props
   
+  console.log(errMsg)
   return (
     <form onSubmit={handleSubmit} className="auth-container">
       <input 
@@ -26,6 +28,7 @@ export default function AuthForm(props){
         onChange={handleChange} 
         placeholder="Password"/>
       <button>{ btnText }</button>
+      <p className="errMsg"></p>
     </form>
   )
 }

@@ -9,27 +9,18 @@ import "./styles/Header.css"
 
   export default function Header() {
 
-    const  {user , logout} = useContext(UserContext)
-    console.log(user)
+    const  {logout} = useContext(UserContext)
+
+
     return (
     // <Router>
         <header>
           <div className="NavBar">
             <h1>United States National Parks</h1>
-            {
-              user.username ? 
-              <button onClick={logout}>logout</button>  
-              :
-              <Link to="/">Log In</Link>
-            }
+            <Link to="/" onClick={logout}>Log Out</Link>  
             <Link to="/Welcome">Home</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/videos">All Videos</Link>
+            <Link to="/Profile">Profile</Link>
           </div>
-              {/* <div className="CarouselContainer" ref={scrollRef}> */}
-                {/* {carouselHtml} */}
-              {/* </div> */}
-            {/* <Link to="/saved">Saved</Link> */}
         </header>
 
     )

@@ -19,8 +19,6 @@ export default function ImageCarousel() {
         display: show ? "block" : "none"
     }
 
-
-    console.log(parksArray)
     // map through parksArray and return a carousel item for each park 
     const html = parksArray.map(park => {
     const image = park.images[0]    

@@ -3,13 +3,14 @@ import {useContext} from "react"
 import { UserContext } from "../components/Context/UserContext"
 import { ParksContext } from "../components/Context/ParksContext"
 import Carousel from "../components/Carousel"
-import DisplayPage from "../components/DisplayPage"
+import Display from "../components/Display"
+import "./styles/Profile.css"
 
 export default function Profile() {
     const { user} = useContext(UserContext)
     
-    const getPark = useContext(ParksContext)
-    console.log(user.parks)
+    const {getPark} = useContext(ParksContext)
+    console.log(user.favorites)
     return (
         <div className="Profile">
         <section className="topSection">
@@ -20,10 +21,10 @@ export default function Profile() {
             <h1>Click the images to learn more about the parks below!</h1> 
             <Carousel />
         </section>
-        {user.parks?
+        {user.favorites.length > 1?
         <section className="bottomSection">
-            <DisplayPage 
-            collection={user.parks}/>
+            <Display 
+            collection={user.favorites}/>
         </section>
         :
         <h1>You can save and view your favorite parks here!</h1>    

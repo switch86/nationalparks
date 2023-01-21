@@ -8,18 +8,18 @@ import "../components/styles/Display.css"
 import { ParksContext } from "./Context/ParksContext"
 import Like from "./Like"
 
-function DisplayPage(props) {
-    const {setPark, collection} = useContext(ParksContext)
+function Display(props) {
+    const {park, setPark, collection} = useContext(ParksContext)
     const {savePark} = useContext(UserContext)
-    function handleClick(park) {
+    function handleClick() {
         console.log(park)
         setPark(park)
     }
-    function handleSave(park) {
+    function handleSave() {
         console.log(park)
         savePark(park)
     }
-    console.log(collection)
+
     const imageHTML = collection.map((park) => {
         const {parkCode, images, description, id, fullName} = park
     //     return {
@@ -56,4 +56,4 @@ function DisplayPage(props) {
         )
 
 }
-export default DisplayPage
+export default Display

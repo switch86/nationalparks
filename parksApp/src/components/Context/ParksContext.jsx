@@ -7,11 +7,10 @@ const ParksContext = createContext()
 
 function ParksProvider(props) {
 
-  // set empty state for image carousel 
+  // set state for image carousel park and collection 
   const [parksArray, setParksArray] = useState([])
   const [park, setPark] = useState()
   const [collection, setCollection] = useState([])
-  const [video, setVideo] = useState([])
   const stateCodes = [
     {name: 'All', abbreviation: ""},
    { name: 'ALABAMA', abbreviation: 'AL'},
@@ -75,8 +74,7 @@ function ParksProvider(props) {
    { name: 'WYOMING', abbreviation: 'WY' }
   ]
 // get parks based on parameters saved in selections 
-  function handleSubmit(selections) {
-    console.log(selections)
+  const handleSubmit = (selections) => {
     axios.request({
       method: "get",
       url: "http://localhost:9000/nps/",  
@@ -85,7 +83,7 @@ function ParksProvider(props) {
     .then(res => {setCollection(res.data.data)})
     .catch(error => console.dir(error))
   }
-  //get parks based on URL
+  //get parks based on URL route
   function handleSelect(selections) {
     console.log(selections)
     axios.request({
@@ -98,9 +96,9 @@ function ParksProvider(props) {
     })
     .catch(error => console.dir(error))
   }
-  console.log(collection)
+
   
-  
+  //get park with parkcode 
   function getPark(parkId) {
     console.log(parkId)
       axios.request({
@@ -113,9 +111,8 @@ function ParksProvider(props) {
     }
 
   
-  // get Parks Array - these are used in the carousel
-  useEffect(() => {
-    function getAllParks() {
+  // // get Parks Array - these are used in the carousel
+  function getAllParks() {
       axios.get(`http://localhost:9000/nps/`)
               .then(res => {
                 setParksArray(res.data.data)
@@ -123,6 +120,7 @@ function ParksProvider(props) {
               })
               .catch(err => console.log(err))
     }
+    useEffect(() => {
     getAllParks()  
       }, [])  
 
@@ -132,8 +130,6 @@ function ParksProvider(props) {
         <ParksContext.Provider value={{
           parksArray,
           collection,
-          video, 
-          setVideo,
           handleSubmit,
           handleSelect,
           setPark,

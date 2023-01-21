@@ -72,21 +72,21 @@ parkRouter.delete("/:parkId", (req, res, next) => {
   )
 })
 
-// Update park
-parkRouter.put("/:parkId", (req, res, next) => {
-  Park.findOneAndUpdate(
-    { _id: req.params.parkId, user: req.auth._id },
-    req.body,
-    { new: true },
-    (err, updatedpark) => {
-      if(err){
-        res.status(500)
-        return next(err)
-      }
-      console.log(updatedpark)
-      return res.status(201).send(updatedpark)
-    }
-  )
-})
+// // Update park
+// parkRouter.put("/:parkId", (req, res, next) => {
+//   Park.findOneAndUpdate(
+//     { _id: req.params.parkId, user: req.auth._id },
+//     req.body,
+//     { new: true },
+//     (err, updatedpark) => {
+//       if(err){
+//         res.status(500)
+//         return next(err)
+//       }
+//       console.log(updatedpark)
+//       return res.status(201).send(updatedpark)
+//     }
+//   )
+// })
 
 module.exports = parkRouter

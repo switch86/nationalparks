@@ -8,5 +8,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+.errMsg {
+  color: red
+} 
 

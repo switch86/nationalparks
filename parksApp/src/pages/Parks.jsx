@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom"
 import {useContext} from "react"
 import { ParksContext } from "../components/Context/ParksContext"
-import DisplayPage from "../components/DisplayPage"
+import Display from "../components/Display"
 import { useEffect } from "react"
 import axios from "axios"
 
@@ -14,11 +14,11 @@ export default function Parks() {
     const parkCode = {parkCode: parkId}
     console.log(parkId)
     
-    useEffect(() => {
-        if (!park) {
-            handleSelect(parkCode)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!park) {
+    //         handleSelect(parkCode)
+    //     }
+    // }, [])
 
     return (
         park ? 

@@ -7,7 +7,7 @@ export default function Like(props) {
     const {parks, likePark} = useContext(UserContext)
     const [likes, setLikes] = useState("");
     const [isClicked, setIsClicked] = useState();
-    // console.log(parks)
+    // console.log(park)
     
     if (park) {
         const match = parks.includes(park.parkCode)

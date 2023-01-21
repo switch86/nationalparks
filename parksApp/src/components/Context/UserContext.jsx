@@ -31,7 +31,7 @@ function signup(credentials) {
             user,
             token 
         }))})
-        .catch(err => console.dir(err))
+        .catch(err => handleAuthErr(err.response.data.errMsg))
     }
     function login(credentials) {
         axios.post("http://localhost:9000/auth/login", credentials) 
@@ -45,7 +45,7 @@ function signup(credentials) {
                 user,
                 token 
             }))})
-            .catch(err => console.dir(err))     
+            .catch(err => handleAuthErr(err.response.data.errMsg))     
 }
     function logout() {
         localStorage.removeItem("token")
@@ -55,6 +55,19 @@ function signup(credentials) {
             token: "",
             parks: []
         })
+    }
+    const handleAuthErr = (errMsg) => {
+        setUserState(prevState => ({
+            ...prevState,
+            errMsg
+        }))
+    }
+
+    const resetAuthErr = () => {
+        setUserState(prevState => ({
+            ...prevState,
+            errMsg: ''
+        }))
     }
     function likePark(newPark) {
         // if (userState.parks.includes(park => park.parkCode === newPark.parkCode)) {
@@ -78,6 +91,7 @@ function signup(credentials) {
                 parks: [res.data]
             })))
             .catch(err => console.log(err))
+            console.log(userState)
     }
     return (
         <UserContext.Provider
@@ -87,7 +101,8 @@ function signup(credentials) {
             login,
             logout,
             likePark, 
-            getSavedParks
+            getSavedParks,
+            resetAuthErr
         }}>
             {props.children}
         </UserContext.Provider>
