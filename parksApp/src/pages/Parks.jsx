@@ -9,16 +9,15 @@ export default function Parks() {
 
     //change park from useContext to useParams so it stays when the page refreshes. 
     const {parkId} = useParams()
-    const {getPark, park, handleSelect} = useContext(ParksContext)
-    console.log(park)
+    const {getPark, setPark, park} = useContext(ParksContext)
     const parkCode = {parkCode: parkId}
-    console.log(parkId)
+    console.log(park)
     
-    // useEffect(() => {
-    //     if (!park) {
-    //         handleSelect(parkCode)
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (!park) {
+            setPark(getPark(parkCode))
+        }
+    }, [])
 
     return (
         park ? 

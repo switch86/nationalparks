@@ -12,7 +12,7 @@ export default function AuthForm(props){
     errMsg 
   } = props
   
-  console.log(errMsg)
+  // console.log(errMsg)
   return (
     <form onSubmit={handleSubmit} className="auth-container">
       <input 

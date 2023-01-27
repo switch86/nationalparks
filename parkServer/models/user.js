@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
+// const { default: Parks } = require('../../parksApp/src/pages/Parks')
 
 const userSchema = new Schema({
   username: {
@@ -13,14 +14,14 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  favorites: Array,
+  favorites: {
+    type: Array,
+    required: true,
+    default : []
+  },
   isAdmin: {
     type: Boolean,
     default: false
-  },
-  memberSince: {
-    type: Date,
-    default: Date.now
   }
 })
 

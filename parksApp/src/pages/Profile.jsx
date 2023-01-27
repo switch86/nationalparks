@@ -7,10 +7,20 @@ import Display from "../components/Display"
 import "./styles/Profile.css"
 
 export default function Profile() {
-    const { user} = useContext(UserContext)
+    const { user, favorites } = useContext(UserContext)
     
-    const {getPark} = useContext(ParksContext)
-    console.log(user.favorites)
+    const {getPark, park, setPark, getAllParks} = useContext(ParksContext)
+    const collection = []
+    if (favorites.length > 0) {
+        favorites.map(favorite => {
+            if (favorite != park.parkCode) {
+                setPark(getPark(favorite))
+                console.log(park)
+                collection.push(park)
+            }
+        })
+    }
+    console.log(collection)
     return (
         <div className="Profile">
         <section className="topSection">
@@ -23,8 +33,8 @@ export default function Profile() {
         </section>
         {user.favorites.length > 1?
         <section className="bottomSection">
-            <Display 
-            collection={user.favorites}/>
+            {/* <Display 
+            collection={collection}/> */}
         </section>
         :
         <h1>You can save and view your favorite parks here!</h1>    

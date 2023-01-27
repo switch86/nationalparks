@@ -1,76 +1,195 @@
 const express = require("express")
-const park = require("../models/park.js")
 const parkRouter = express.Router()
 const Park = require('../models/park.js')
+const User = require('../models/user.js')
 
-// Get All parks
+// Get All liked parks
 parkRouter.get("/", (req, res, next) => {
   Park.find((err, parks) => {
     if(err){
       res.status(500)
       return next(err)
-    }
+    }    
     return res.status(200).send(parks)
   })
 })
 
-// get parks by user 
-
+// // get liked parks by favorites by user
 parkRouter.get('/user', (req, res, next) => {
-  Park.find( {user: req.auth._id}, (err, parks) => {
-    if (err) {
+  Park.find({users: req.auth._id}, (err, user) => {
+    if(err) {
       res.status(500)
       return next(err)
     }
-    return res.status(200).send(parks)
+    // user.favorites.map()
+    return res.status(200).send(user.favorites)
   })
 })
 
-// Add new park
-parkRouter.post("/", (req, res, next) => {
-  let isLiked = Park.exists({parkCode: req.body.parkCode})
-  console.log(isLiked)
-  if (isLiked) {
-    Park.findOneAndUpdate(
-      { _id: isLiked._id, user: req.auth._id },
-      req.body,
-      { new: true },
-      (err, updatedpark) => {
-        if(err){
-          res.status(500)
-          return next(err)
-        }
-        console.log(updatedpark)
-        return res.status(201).send(updatedpark)
+
+// parkRouter.get('/:parkId', (req, res, next) => {
+//   User.countDocuments( {favorites: {$in: [req.params.parkId]}}, (err, count) => {
+//     if (err) {
+//       res.status(500)
+//       return next(err)
+//     }
+//     return res.status(200).send(count)
+//   })
+// })
+
+// const addLikeToPark = function (park, user) {
+//   return Park.findByIdAndUpdate(
+//     park, 
+//     {$push: {users: user._id}},
+//     { new: true, useFindAndModify: false }
+//   )
+// }
+// const addParkToUser = function (park, user) {
+//   return User.findByIdAndUpdate(
+//     user, 
+//     {$push: {favorites: park._id}},
+//     { new: true, useFindAndModify: false }
+//   )
+// }
+
+//   return Park.findById(id).populate("users")
+  
+//   const createPark = function(parkObj) { 
+//   return Park.create(parkObj).then(park => {
+//     console.log(park)
+//   return park})
+  // console.log(req.body)
+
+// Like park that has not been liked before. 
+
+parkRouter.post("/user/:parkId", (req, res, next) => {
+  //of there is already a park, save it as parkItem and return
+  parkItem = Park.findOne({parkCode: req.body.parkCode})
+  if (parkItem) {
+    return
+  } else {
+    // create a new Park from the request body 
+    const newPark = new Park(req.body)
+    // create a new version
+    // const newpark = {...newPark}
+    // find the user who made the request
+    const user = User.findOne({ _id: req.auth._id})
+    // add user to park users 
+    newPark.users = [...parkItem.users, user]
+    newPark.upVotes = [...parkItem.upVotes, user._id]
+    // save new Park 
+    newPark.save((err, result) => {
+      if (err) {
+        res.status(500)
+        return next(err)
       }
-    )
-  }
-  else {
-    req.body.user = req.auth._id
-    const newpark = new Park(req.body)
-    newpark.save((err, savedpark) => {
+      return res.status(200).send(result)
+    })
+    // // create a new version of user 
+    // const user2 = {...user}
+    // push the new Park to favorites in the new version 
+    user.favorites.push(newPark)
+    User.findOneAndUpdate({ _id: req.auth._id},
+      user,
+      { new: true },
+      (err, updated) => {
       if(err){
         res.status(500)
         return next(err)
       }
-      return res.status(201).send(savedpark)
+      return res.status(201).send(updated)
     })
   }
 })
 
-// Delete park
-parkRouter.delete("/:parkId", (req, res, next) => {
-  Park.findOneAndDelete(
-    { _id: req.params.parkId, user: req.auth._id},
-    (err, deletedpark) => {
-      if(err){
+
+// Update park that has been added
+
+parkRouter.put("/user/:parkId", async(req, res, next) => {
+  const parkItem = Park.findOne({parkCode: req.body.parkCode})
+  if (!parkItem) { 
+    return 
+  } 
+  const newPark = {...parkItem}
+  // var match = parkItem.users.filter(current => current == user)
+  // if (match) {
+  //   newPark.users.filter(current => current != user)
+  //   newPark.upVotes.filter(current => current != user._id)
+  // } else {
+    newPark.users = [...parkItem.users, user]
+    newPark.upVotes = [...parkItem.upVotes, user._id]
+  // }
+  
+  const user = User.findOne({ _id: req.auth._id})
+  user.favorites.push(newPark)
+
+  
+  // function to add user 
+
+  Park.findOneAndUpdate(
+    {parkCode: req.body.parkCode}, 
+    newPark,
+    { new: true },
+    (err, user) => {
+      if (err) {
         res.status(500)
         return next(err)
       }
-      return res.status(200).send(`Successfully delete park: ${deletedpark.title}`)
-    }
-  )
-})
+      return res.status(200).send(user)
+    })
+    User.findOneAndUpdate({_id: req.auth._id},
+      user, 
+      { new: true}, 
+      (err, updatedUser) => {
+        if(err ) {
+          res.status(500)
+          return next(err)
+        }
+        return res.status(200).send(updatedUser)
+      })
+  }
+)
+  
+  
+  // User.findOne(, (err, user) => {
+    //   if (err) {
+  //     res.status(500)
+  //     return next(err)
+  //   } if(user) {
+  //     userObj = {...user.withoutPassword()}
+  //     console.log(userObj)
+  //   } return })
+  //   const newBody = {
+  //     favorites: [...req.body]
+  //   }
+    
+
+//   else {
+//     req.body.user = req.auth._id
+//     const newpark = new Park(req.body)
+//     newpark.save((err, savedpark) => {
+//       if(err){
+//         res.status(500)
+//         return next(err)
+//       }
+//       return res.status(201).send(savedpark)
+//     })
+//   }
+// })
+
+// Delete park
+// parkRouter.delete("/:parkId", (req, res, next) => {
+//   Park.findOneAndDelete(
+//     { _id: req.params.parkId, user: req.auth._id},
+//     (err, deletedpark) => {
+//       if(err){
+//         res.status(500)
+//         return next(err)
+//       }
+//       return res.status(200).send(`Successfully delete park: ${deletedpark.title}`)
+//     }
+//   )
+// })
 
 // // Update park
 // parkRouter.put("/:parkId", (req, res, next) => {
