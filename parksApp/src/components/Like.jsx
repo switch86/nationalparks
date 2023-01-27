@@ -1,41 +1,31 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from './Context/UserContext';
 import { ParksContext } from './Context/ParksContext';
+import "./styles/Like.css"
 
 export default function Like(props) {
-    const {park, setPark} = useContext(ParksContext)
-    const {parks, likePark} = useContext(UserContext)
-    const [likes, setLikes] = useState("");
+    const {parkCode} = props
+    const { favorites, saveUserPark} = useContext(UserContext)
     const [isClicked, setIsClicked] = useState();
     // console.log(park)
-    
-    if (park) {
-        const match = parks.includes(park.parkCode)
-        setLikes(park.likes)
+    console.log(favorites)
+    if (parkCode) {
+        const match = favorites.includes(parkCode)
         setIsClicked(match)
     }
     const handleClick = () => {
         if (isClicked) {
-            setLikes(prev => prev - 1)
-            setPark( prev => ({
-               ...prev,
-               likes: likes  
-            }))
-            parks.filter(current => current.parkCode != park.parkCode)
+            // let updated = favorites.filter(current => current.parkCode != parkCode)
+            removeUserPark(parkCode)
         } else {
-            setLikes(prev => prev + 1)
-            setPark( prev => ({
-                ...prev,
-                likes: likes  
-             }))
-            likePark(park)
+            saveUserPark(parkCode)
         }
         setIsClicked(!isClicked);
     };
 
     return (
-        <button className={ `like-button ${isClicked && 'liked'}` } onClick={ handleClick }>
-        <span className="likes-counter">{ `Like | ${likes || 0}` }</span>
-        </button>
+        <button className={ `like-button ${isClicked && 'liked'}` } onClick={ handleClick }>Like</button>
+        //  <span className="likes-counter">{ `Like | ${likes || 0}` }</span> 
+        
     );
 };
