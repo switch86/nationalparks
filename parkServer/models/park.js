@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const parkSchema = new Schema({
   parkCode: {
     type: String,
-    required: true,
+    // required: true,
   },
   comments: {
     type: Schema.Types.ObjectId, 

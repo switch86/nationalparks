@@ -15,12 +15,11 @@ export default function UserProvider(props) {
 
     const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
-    token: localStorage.getItem("token") || "",
-    favorites: []
+    token: localStorage.getItem("token") || ""
 }
 
 const [userState, setUserState] = React.useState(initState)
-console.log(userState.user)
+console.log(userState)
 function signup(credentials) {
     axios.post("http://localhost:9000/auth/signup", credentials) 
         .then(res => {
@@ -52,8 +51,7 @@ function signup(credentials) {
         localStorage.removeItem("user")
         setUserState({
             user: {},
-            token: "",
-            parks: []
+            token: ""
         })
     }
     const handleAuthErr = (errMsg) => {

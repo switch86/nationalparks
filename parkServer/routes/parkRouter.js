@@ -9,8 +9,12 @@ parkRouter.get("/", (req, res, next) => {
     if(err){
       res.status(500)
       return next(err)
-    }    
-    return res.status(200).send(parks)
+    }
+    const parkCodes = []
+    parks.map((park) => {
+      parkCodes.push(park.parkCode)
+    })    
+    return res.status(200).send(parkCodes)
   })
 })
 
@@ -62,21 +66,24 @@ parkRouter.get('/user', (req, res, next) => {
 
 // Like park that has not been liked before. 
 
-parkRouter.post("/user/:parkId", (req, res, next) => {
+parkRouter.post("/user/:parkId", async (req, res, next) => {
+  console.log(req.body)
+  // find the user who made the request
+  const user = await User.findOneAndUpdate({ _id: req.auth._id}, {$addToSet: {"favorites": req.body.parkCode}}, {new:true})
+  console.log(user)
   //of there is already a park, save it as parkItem and return
-  parkItem = Park.findOne({parkCode: req.body.parkCode})
+  parkItem = await Park.findOneAndUpdate({parkCode: req.body.parkCode}, {$addToSet: {"upVotes":  user._id}}, {new:true})
   if (parkItem) {
+    console.log(parkItem)
     return
   } else {
     // create a new Park from the request body 
     const newPark = new Park(req.body)
     // create a new version
     // const newpark = {...newPark}
-    // find the user who made the request
-    const user = User.findOne({ _id: req.auth._id})
     // add user to park users 
-    newPark.users = [...parkItem.users, user]
-    newPark.upVotes = [...parkItem.upVotes, user._id]
+    newPark.users = user
+    newPark.upVotes = [user._id]
     // save new Park 
     newPark.save((err, result) => {
       if (err) {
@@ -88,17 +95,17 @@ parkRouter.post("/user/:parkId", (req, res, next) => {
     // // create a new version of user 
     // const user2 = {...user}
     // push the new Park to favorites in the new version 
-    user.favorites.push(newPark)
-    User.findOneAndUpdate({ _id: req.auth._id},
-      user,
-      { new: true },
-      (err, updated) => {
-      if(err){
-        res.status(500)
-        return next(err)
-      }
-      return res.status(201).send(updated)
-    })
+    // user.favorites.push(newPark)
+    // User.findOneAndUpdate({ _id: req.auth._id},
+    //   user,
+    //   { new: true },
+    //   (err, updated) => {
+    //   if(err){
+    //     res.status(500)
+    //     return next(err)
+    //   }
+    //   return res.status(201).send(updated)
+    // })
   }
 })
 
@@ -106,49 +113,51 @@ parkRouter.post("/user/:parkId", (req, res, next) => {
 // Update park that has been added
 
 parkRouter.put("/user/:parkId", async(req, res, next) => {
-  const parkItem = Park.findOne({parkCode: req.body.parkCode})
+  const user = User.findOneAndUpdate({ _id: req.auth._id}, { $addToSet: {favorites: req.body.parkCode }}, { new: true})
+  const parkItem = Park.findOneAndUpdate({parkCode: req.body.parkCode}, {$addToSet: {"upVotes":  user._id}}, {new: true})
   if (!parkItem) { 
-    return 
+    return next(new Error("this park hasn't been saved before"))
   } 
-  const newPark = {...parkItem}
+  return res.status(200).send("updated")
+})
+  // const newPark = {...parkItem}
   // var match = parkItem.users.filter(current => current == user)
   // if (match) {
   //   newPark.users.filter(current => current != user)
   //   newPark.upVotes.filter(current => current != user._id)
-  // } else {
-    newPark.users = [...parkItem.users, user]
-    newPark.upVotes = [...parkItem.upVotes, user._id]
+  // // } else {
+  //   newPark.users = [...parkItem.users, user]
+  //   newPark.upVotes = [...parkItem.upVotes, user._id]
   // }
   
-  const user = User.findOne({ _id: req.auth._id})
-  user.favorites.push(newPark)
+  // user.favorites.push(newPark)
 
   
   // function to add user 
 
-  Park.findOneAndUpdate(
-    {parkCode: req.body.parkCode}, 
-    newPark,
-    { new: true },
-    (err, user) => {
-      if (err) {
-        res.status(500)
-        return next(err)
-      }
-      return res.status(200).send(user)
-    })
-    User.findOneAndUpdate({_id: req.auth._id},
-      user, 
-      { new: true}, 
-      (err, updatedUser) => {
-        if(err ) {
-          res.status(500)
-          return next(err)
-        }
-        return res.status(200).send(updatedUser)
-      })
-  }
-)
+//   Park.findOneAndUpdate(
+//     {parkCode: req.body.parkCode}, 
+//     newPark,
+//     { new: true },
+//     (err, user) => {
+//       if (err) {
+//         res.status(500)
+//         return next(err)
+//       }
+//       return res.status(200).send(user)
+//     })
+//     User.findOneAndUpdate({_id: req.auth._id},
+//       user, 
+//       , 
+//       (err, updatedUser) => {
+//         if(err ) {
+//           res.status(500)
+//           return next(err)
+//         }
+//         return res.status(200).send(updatedUser)
+//       })
+//   }
+// )
   
   
   // User.findOne(, (err, user) => {

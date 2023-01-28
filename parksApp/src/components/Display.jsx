@@ -9,12 +9,13 @@ import Like from "./Like"
 
 export default function Display(props) {
     const {collection } = props
-    // const { collection, getAllLikedParks, savedParks} = useContext(ParksContext)
+    
+    const {getAllLikedParks, allLikedParks} = useContext(ParksContext)
     // const {savePark} = useContext(UserContext)
     
-    // useEffect(() => {
-    //     getAllLikedParks()  
-    //       }, [])  
+    useEffect(() => {
+        getAllLikedParks()  
+          }, [])  
     
     // function handleClick(parkCode) {
     //     console.log(park)
@@ -28,13 +29,16 @@ export default function Display(props) {
         return (
             <div className="Cards">
              {collection.map((park,index) => {
+                let isSaved = allLikedParks.includes(park.parkCode)
+                console.log(isSaved)
                 return (
                     <div key={index}>
                     <DisplayCard
                         {...park}
                     /> 
                     <Like 
-                        {...park} 
+                        {...park}
+                        isSaved={isSaved} 
                     />
                     </div>
                 )

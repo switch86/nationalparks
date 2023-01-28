@@ -18,7 +18,8 @@ function ParksProvider(props) {
   const [parksArray, setParksArray] = useState([])
   const [park, setPark] = useState()
   const [collection, setCollection] = useState([])
-  const [savedParks, setSavedParks] = useState([])
+  const [userParks, setSavedParks] = useState([])
+  const [allLikedParks, setAllLikedParks] = useState([])
 
 // get parks based on parameters saved in selections 
   const handleSubmit = (selections) => {
@@ -38,7 +39,6 @@ function ParksProvider(props) {
         .then(res => setPark(res.data))
         .catch(error => console.log(error))
       }
-      
       function getParks(parkId) {
         console.log(parkId)
           userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}`)
@@ -60,7 +60,7 @@ function ParksProvider(props) {
     function getAllLikedParks() {
       userAxios.get("http://localhost:9000/api/parks/")
         .then( res => {
-          setSavedParks(res)
+          setAllLikedParks(res.data)
         })
         .catch(err => console.log(err))
       }
@@ -71,19 +71,19 @@ function ParksProvider(props) {
           .catch(err => console.log(err))
       }
   
-    function saveUserPark(parkCode) {
-        userAxios.post(`http://localhost:9000/api/parks/user/${parkCode}`)
+    function saveUserPark(park) {
+        userAxios.post(`http://localhost:9000/api/parks/user/${park.parkCode}`, park)
           .then(res => setPark(res))
           .catch(err => console.log(err))
         }
-    function updateUserPark(parkCode) {
-        userAxios.put(`http://localhost:9000/api/parks/user/${parkCode}`)
+    function updateUserPark(park) {
+        userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
           .then(res => setPark(res))
           .catch(err => console.log(err))
           
     }
-    function removeUserPark(parkCode) {
-        userAxios.put(`http://localhost:9000/api/parks/user/${parkCode}`)
+    function removeUserPark(park) {
+        userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
           .then(res => console.log(res))
           .catch(err => console.log(err))
     }
@@ -96,8 +96,10 @@ function ParksProvider(props) {
           handleSubmit,
           saveUserPark,
           removeUserPark,
+          updateUserPark,
           getAllLikedParks,
-          savedParks,
+          allLikedParks,
+          userParks,
           // handleSelect,
           setPark,
           getPark,

@@ -4,34 +4,43 @@ import { ParksContext } from './Context/ParksContext';
 import "./styles/Like.css"
 
 export default function Like(props) {
-    const {parkCode} = props
-    const {saveUserPark} = useContext(ParksContext)
+    const {parkCode, isSaved} = props
+    const {saveUserPark, updateUserPark, removeUserPark} = useContext(ParksContext)
     const { user, setUserState } = useContext(UserContext)
     const [isClicked, setIsClicked] = useState(user.favorites.includes(parkCode));
-    console.log(parkCode)
+    console.log(isSaved)
 
     const handleClick = () => {
-        if (isClicked) {
-            // let updated = favorites.filter(current => current.parkCode != parkCode)
-            removeUserPark(parkCode)
+        if (user.favorites.includes(parkCode)) {
+            removeUserPark(props)
+            const newFavorites = [...user.favorites]
+            const newUser = {
+                ...user,
+                favorites: newFavorites.filter(favorite => favorite != parkCode)
+            }
             setUserState(prev => ({
                 ...prev, 
-                user: {
-                    ...prev.user,
-                    favorites: user.favorites.filter(favorite => favorite != parkCode)
-                }
+                user: newUser
             }))
-        } else {
-            saveUserPark(parkCode)
-            setUserState(prev => ({
-                ...prev, 
-                user: {
-                    ...prev.user,
-                    favorites: [...prev.user.favorites, parkCode]
-                }
-            }))
+            localStorage.setItem("user", JSON.stringify(newUser))
         }
-        setIsClicked(!isClicked);
+        else {
+            if (!isSaved) {
+                saveUserPark(props)
+            } else {
+                updateUserPark(props)
+            }
+            const newUser = {
+                ...user, 
+                favorites: [...user.favorites, parkCode]
+            }
+            setUserState(prev => ({
+                ...prev, 
+                user: newUser,
+            }))
+            localStorage.setItem("user", JSON.stringify(newUser))
+        }
+
     };
 
     return (

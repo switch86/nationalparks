@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom"
-import {useContext} from "react"
+import {useContext, useState} from "react"
 import { ParksContext } from "../components/Context/ParksContext"
 import Display from "../components/Display"
 import { useEffect } from "react"
@@ -10,15 +10,17 @@ export default function Parks() {
     //change park from useContext to useParams so it stays when the page refreshes. 
     const {parkId} = useParams()
     const {getPark, setPark, park} = useContext(ParksContext)
+    const [Park, SetPark] = useState(park)
     const parkCode = {parkCode: parkId}
-    console.log(park)
     
     useEffect(() => {
         if (!park) {
-            setPark(getPark(parkCode))
+            let newpark = getPark(parkCode)
+            console.log(newpark)
         }
     }, [])
-
+    console.log(park)
+    
     return (
         park ? 
             <div className="ParkPage">

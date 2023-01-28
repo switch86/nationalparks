@@ -8,11 +8,11 @@ export default function DisplayCard(props){
     // const {saveUserPark, savedParks} = useContext(ParksContext)
     // const { favorites } = useContext(UserContext)
     const {parkCode, images, description, id, fullName} = props
-    console.log("displaycard")
+
                 return (
 
                     <div key={id}  className="Card">
-                        <Link to={`/parks/${parkCode}`} onClick={() => handleClick(park)}>
+                        <Link to={`/parks/${parkCode}`}>
                             <div key={parkCode} className="imageContainer">
                                 <img className="Image" src={images[0].url}  alt={images[0].description}/>    
                                 <h1 className="Title">{fullName}</h1>
