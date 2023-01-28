@@ -23,7 +23,7 @@ export default function Parks() {
         park ? 
             <div className="ParkPage">
             <h1 className="parkName">{park.fullName}</h1>
-            <img className="parkImage" src={park.images[0].url}/>
+            <img className="parkImage" src={park?.images[0]?.url}/>
             {park.activities.map((activity, index) => {
                 return(<span key={index}>{activity.name}</span>)
             })}

@@ -7,19 +7,17 @@ import Display from "../components/Display"
 import "./styles/Profile.css"
 
 export default function Profile() {
-    const { user, favorites } = useContext(UserContext)
-    
-    const {getPark, park, setPark, getAllParks} = useContext(ParksContext)
+    const { user} = useContext(UserContext)
+    console.log(user.favorites)
+    const {getParks, park, getUserLikedParks} = useContext(ParksContext)
     const collection = []
-    if (favorites.length > 0) {
-        favorites.map(favorite => {
-            if (favorite != park.parkCode) {
-                setPark(getPark(favorite))
-                console.log(park)
-                collection.push(park)
-            }
-        })
-    }
+    // user.favorites.map(favorite => {
+    //         favorite = { parkCode : favorite }
+    //         const newPark = getParks(favorite)
+    //         console.log(newPark)        
+    //         // collection.push(newPark)
+    // })
+    
     console.log(collection)
     return (
         <div className="Profile">

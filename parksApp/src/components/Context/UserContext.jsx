@@ -118,6 +118,7 @@ function signup(credentials) {
             // getUserParks,
             // saveUserPark,
             resetAuthErr,
+            setUserState
             
         }}>
             {props.children}

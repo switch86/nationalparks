@@ -14,11 +14,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  favorites: {
-    type: Array,
-    required: true,
-    default : []
-  },
+  // favorites: {
+  //   type: Array,
+  //   required: true,
+  //   default : []
+  // },
   isAdmin: {
     type: Boolean,
     default: false

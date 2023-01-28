@@ -16,13 +16,13 @@ parkRouter.get("/", (req, res, next) => {
 
 // // get liked parks by favorites by user
 parkRouter.get('/user', (req, res, next) => {
-  Park.find({users: req.auth._id}, (err, user) => {
+  Park.find({users: req.auth._id}, (err, parks) => {
     if(err) {
       res.status(500)
       return next(err)
     }
     // user.favorites.map()
-    return res.status(200).send(user.favorites)
+    return res.status(200).send(parks)
   })
 })
 
