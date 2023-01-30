@@ -1,18 +1,18 @@
 import {Link} from "react-router-dom"
-// import {  useContext, useState } from 'react'
+import {  useContext, useState } from 'react'
 // import { UserContext } from './Context/UserContext'
-// import { ParksContext } from "./Context/ParksContext"
+import { ParksContext } from "./Context/ParksContext"
 
 
 export default function DisplayCard(props){
-    // const {saveUserPark, savedParks} = useContext(ParksContext)
+    const {getPark} = useContext(ParksContext)
     // const { favorites } = useContext(UserContext)
     const {parkCode, images, description, id, fullName} = props
 
                 return (
 
                     <div key={id}  className="Card">
-                        <Link to={`/parks/${parkCode}`}>
+                        <Link to={`/parks/${parkCode}`} >
                             <div key={parkCode} className="imageContainer">
                                 <img className="Image" src={images[0].url}  alt={images[0].description}/>    
                                 <h1 className="Title">{fullName}</h1>

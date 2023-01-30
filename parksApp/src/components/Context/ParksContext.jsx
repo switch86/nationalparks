@@ -8,8 +8,8 @@ const userAxios = axios.create()
 
 userAxios.interceptors.request.use(config => {
     const token = localStorage.getItem("token")
-    // const user = JSON.parse(localStorage.getItem("user"))
-    // config.headers.user = user
+    const user = JSON.parse(localStorage.getItem("user"))
+    config.headers.user = user
     config.headers.Authorization = `Bearer ${token}`
     return config
 })
@@ -18,11 +18,11 @@ function ParksProvider(props) {
   const [parksArray, setParksArray] = useState([])
   const [park, setPark] = useState()
   const [collection, setCollection] = useState([])
-  const [userParks, setSavedParks] = useState([])
+  const [savedParks, setSavedParks] = useState([])
   const [allLikedParks, setAllLikedParks] = useState([])
 
 // get parks based on parameters saved in selections 
-  const handleSubmit = (selections) => {
+  const getSelectedParks = (selections) => {
     userAxios.request({
       method: "get",
       url: "http://localhost:9000/nps/",  
@@ -32,19 +32,19 @@ function ParksProvider(props) {
     .catch(error => console.dir(error))
   }
   
-  //get park from nps route with parkcode 
+  //get one park from nps route with parkcode 
   function getPark(parkId) {
-    console.log(parkId)
-      userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}`)
+      userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}/`)
         .then(res => setPark(res.data))
         .catch(error => console.log(error))
       }
-      function getParks(parkId) {
-        console.log(parkId)
-          userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}`)
-            .then(res => setSavedParks(prev => [...prev,res.data]))
-            .catch(error => console.log(error))
-          }
+  // // get user parks for savedParks array 
+  // function getParks(parkId) {
+  //   console.log(parkId)
+  //     userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}`)
+  //       .then(res => setSavedParks(prev => [...prev, res.data]))
+  //       .catch(error => console.log(error))
+  //   }
 
   
   // // get Parks Array from nps - these are used in the carousel
@@ -52,7 +52,7 @@ function ParksProvider(props) {
       userAxios.get(`http://localhost:9000/nps/`)
               .then(res => {
                 setParksArray(res.data.data)
-                // setCollection(res.data.data)
+                setCollection(res.data.data)
               })
               .catch(err => console.log(err))
     }
@@ -67,7 +67,7 @@ function ParksProvider(props) {
       //get user liked parks 
       function getUserLikedParks(){
         userAxios.get(`http://localhost:9000/api/parks/user/`)
-          .then(res => setSavedParks(res))
+          .then(res => setSavedParks(res.data))
           .catch(err => console.log(err))
       }
   
@@ -76,6 +76,7 @@ function ParksProvider(props) {
           .then(res => setPark(res))
           .catch(err => console.log(err))
         }
+
     function updateUserPark(park) {
         userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
           .then(res => setPark(res))
@@ -93,19 +94,18 @@ function ParksProvider(props) {
         <ParksContext.Provider value={{
           parksArray,
           collection,
-          handleSubmit,
+          savedParks,
+          allLikedParks,
+          park,
+          setPark,
+          getSelectedParks,
           saveUserPark,
           removeUserPark,
           updateUserPark,
           getAllLikedParks,
-          allLikedParks,
-          userParks,
-          // handleSelect,
-          setPark,
+          getUserLikedParks,
           getPark,
-          getParks, 
           getAllParks, 
-          park
         }}>
           {props.children}
         </ParksContext.Provider>

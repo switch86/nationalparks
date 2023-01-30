@@ -5,20 +5,20 @@ import { ParksContext } from "../components/Context/ParksContext"
 import Carousel from "../components/Carousel"
 import Display from "../components/Display"
 import "./styles/Profile.css"
+import { useEffect } from "react"
+import DisplayCard from "../components/DisplayCard"
 
 export default function Profile() {
     const { user} = useContext(UserContext)
-    console.log(user.favorites)
-    const {getParks, park, getUserLikedParks} = useContext(ParksContext)
-    const collection = []
-    // user.favorites.map(favorite => {
-    //         favorite = { parkCode : favorite }
-    //         const newPark = getParks(favorite)
-    //         console.log(newPark)        
-    //         // collection.push(newPark)
-    // })
+  
+    const { savedParks, getUserLikedParks} = useContext(ParksContext)
+
+
+    useEffect(() => {
+        getUserLikedParks()
+    } , [])
     
-    console.log(collection)
+    console.log(savedParks)
     return (
         <div className="Profile">
         <section className="topSection">
@@ -31,8 +31,9 @@ export default function Profile() {
         </section>
         {user.favorites.length > 1?
         <section className="bottomSection">
-            {/* <Display 
-            collection={collection}/> */}
+            <Display 
+                collection={savedParks}
+            />
         </section>
         :
         <h1>You can save and view your favorite parks here!</h1>    

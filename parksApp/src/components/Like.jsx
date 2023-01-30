@@ -7,11 +7,11 @@ export default function Like(props) {
     const {parkCode, isSaved} = props
     const {saveUserPark, updateUserPark, removeUserPark} = useContext(ParksContext)
     const { user, setUserState } = useContext(UserContext)
-    const [isClicked, setIsClicked] = useState(user.favorites.includes(parkCode));
+    const [isClicked, setIsClicked] = useState(user.favorites?.includes(parkCode) || false);
     console.log(isSaved)
 
     const handleClick = () => {
-        if (user.favorites.includes(parkCode)) {
+        if (user.favorites?.includes(parkCode)) {
             removeUserPark(props)
             const newFavorites = [...user.favorites]
             const newUser = {

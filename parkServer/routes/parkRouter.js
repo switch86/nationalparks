@@ -1,20 +1,25 @@
 const express = require("express")
+const axios = require("axios")
 const parkRouter = express.Router()
 const Park = require('../models/park.js')
 const User = require('../models/user.js')
+require('dotenv').config()
+const baseUrl = "https://developer.nps.gov/api/v1/parks"
+const key = `api_key=${process.env.KEY}`
 
 // Get All liked parks
 parkRouter.get("/", (req, res, next) => {
-  Park.find((err, parks) => {
+  Park.find( (err, parks) => {
     if(err){
       res.status(500)
       return next(err)
     }
-    const parkCodes = []
-    parks.map((park) => {
-      parkCodes.push(park.parkCode)
-    })    
-    return res.status(200).send(parkCodes)
+    console.log(parks)
+    // const parkCodes = []
+    // parks.map((park) => {
+    //   parkCodes.push(park.parkCode)
+    // })    
+    return res.status(200).send(parks)
   })
 })
 
@@ -25,7 +30,6 @@ parkRouter.get('/user', (req, res, next) => {
       res.status(500)
       return next(err)
     }
-    // user.favorites.map()
     return res.status(200).send(parks)
   })
 })
@@ -64,19 +68,27 @@ parkRouter.get('/user', (req, res, next) => {
 //   return park})
   // console.log(req.body)
 
+
+
 // Like park that has not been liked before. 
 
 parkRouter.post("/user/:parkId", async (req, res, next) => {
-  console.log(req.body)
   // find the user who made the request
   const user = await User.findOneAndUpdate({ _id: req.auth._id}, {$addToSet: {"favorites": req.body.parkCode}}, {new:true})
-  console.log(user)
+
   //of there is already a park, save it as parkItem and return
   parkItem = await Park.findOneAndUpdate({parkCode: req.body.parkCode}, {$addToSet: {"upVotes":  user._id}}, {new:true})
   if (parkItem) {
     console.log(parkItem)
     return
   } else {
+    
+  let fullParkObj
+        
+  axios.get(`${baseUrl}?${`parkCode=${req.body.parkCode}&` || ""}${key}`)
+        .then ((parks) => fullParkObj = parks.data.data[0])
+        .catch (err => next(err))
+    
     // create a new Park from the request body 
     const newPark = new Park(req.body)
     // create a new version
@@ -92,20 +104,7 @@ parkRouter.post("/user/:parkId", async (req, res, next) => {
       }
       return res.status(200).send(result)
     })
-    // // create a new version of user 
-    // const user2 = {...user}
-    // push the new Park to favorites in the new version 
-    // user.favorites.push(newPark)
-    // User.findOneAndUpdate({ _id: req.auth._id},
-    //   user,
-    //   { new: true },
-    //   (err, updated) => {
-    //   if(err){
-    //     res.status(500)
-    //     return next(err)
-    //   }
-    //   return res.status(201).send(updated)
-    // })
+
   }
 })
 
@@ -120,71 +119,6 @@ parkRouter.put("/user/:parkId", async(req, res, next) => {
   } 
   return res.status(200).send("updated")
 })
-  // const newPark = {...parkItem}
-  // var match = parkItem.users.filter(current => current == user)
-  // if (match) {
-  //   newPark.users.filter(current => current != user)
-  //   newPark.upVotes.filter(current => current != user._id)
-  // // } else {
-  //   newPark.users = [...parkItem.users, user]
-  //   newPark.upVotes = [...parkItem.upVotes, user._id]
-  // }
-  
-  // user.favorites.push(newPark)
-
-  
-  // function to add user 
-
-//   Park.findOneAndUpdate(
-//     {parkCode: req.body.parkCode}, 
-//     newPark,
-//     { new: true },
-//     (err, user) => {
-//       if (err) {
-//         res.status(500)
-//         return next(err)
-//       }
-//       return res.status(200).send(user)
-//     })
-//     User.findOneAndUpdate({_id: req.auth._id},
-//       user, 
-//       , 
-//       (err, updatedUser) => {
-//         if(err ) {
-//           res.status(500)
-//           return next(err)
-//         }
-//         return res.status(200).send(updatedUser)
-//       })
-//   }
-// )
-  
-  
-  // User.findOne(, (err, user) => {
-    //   if (err) {
-  //     res.status(500)
-  //     return next(err)
-  //   } if(user) {
-  //     userObj = {...user.withoutPassword()}
-  //     console.log(userObj)
-  //   } return })
-  //   const newBody = {
-  //     favorites: [...req.body]
-  //   }
-    
-
-//   else {
-//     req.body.user = req.auth._id
-//     const newpark = new Park(req.body)
-//     newpark.save((err, savedpark) => {
-//       if(err){
-//         res.status(500)
-//         return next(err)
-//       }
-//       return res.status(201).send(savedpark)
-//     })
-//   }
-// })
 
 // Delete park
 // parkRouter.delete("/:parkId", (req, res, next) => {

@@ -15,11 +15,12 @@ export default function UserProvider(props) {
 
     const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
-    token: localStorage.getItem("token") || ""
+    token: localStorage.getItem("token") || "",
+
 }
 
 const [userState, setUserState] = React.useState(initState)
-console.log(userState)
+
 function signup(credentials) {
     axios.post("http://localhost:9000/auth/signup", credentials) 
         .then(res => {
@@ -67,45 +68,7 @@ function signup(credentials) {
             errMsg: ''
         }))
     }
-    // function likePark(newPark) {
-    //     // if (userState.parks.includes(park => park.parkCode === newPark.parkCode)) {
-    //     //     userAxios.put(`http://localhost:9000/api/parks/${newPark.parkCode}`)
-    //     //         .then(res => console.log(res))
-    //     //         .catch(err => console.log(err))
-    //     // } else {
-    //         userAxios.post(`http://localhost:9000/api/parks/`, newPark) 
-    //             .then(res => setUserState(prev => ({
-    //                 ...prev, 
-    //                 parks: [res.data],
-    //                 likes: prev.likes +1,
-    //             })))
-    //             .catch(err => console.log(err))
-    //     }
-        // const getUserParks = () => {
-        //     userAxios.get('http://localhost:9000/api/parks/user')
-        //         .then(res => setUserParks([...res.data]))
-        //         .catch(err => console.log(err.response.data.errMsg))
-        // }    
-    // useEffect(
-    //     function getUserParks() {
-    //     userAxios.get('http://localhost:9000/api/parks/user')
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err))
-    // }, []
-    // )
-    
-    // function saveUserPark(parksArr) {
-    //     if (userState.favorites.includes(parkCode)) {
-    //         userState.favorites.filter(id => id != parkCode)
-    //     } else (userState.favorites.push(parkCode))
-    //     console.log(userState)
-    //     userAxios.post(`http://localhost:9000/api/parks/user/${parkCode}`, userState)
-    //         .then(res => setUserState(prev => ({
-    //             ...prev, 
-    //             favorites: res.data.favorites})))
-    //         .catch(err => console.log(err))
-    // }
-
+   
     return (
         <UserContext.Provider
         value={{
