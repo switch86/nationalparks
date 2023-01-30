@@ -1,9 +1,10 @@
-// import axios from "axios"
+
 import {React, createContext, useState} from "react"
 
 const SearchContext = createContext()
 
 function SearchProvider(props) {
+  
   // set the array of US states
   const stateCodes = [
     {name: 'All', abbreviation: ""},
@@ -67,7 +68,7 @@ function SearchProvider(props) {
    { name: 'WISCONSIN', abbreviation: 'WI'},
    { name: 'WYOMING', abbreviation: 'WY' }
   ]
-  const [count, setCount] = useState(0)
+
 
   //set empty state for user selections for api call 
   const [selections, setSelections] = useState({})

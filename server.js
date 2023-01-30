@@ -5,10 +5,12 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const {expressjwt: jwt} = require('express-jwt')
 const cors = require("cors")
+const path = require("path")
 
 app.use(cors({origin: 'http://localhost:5173'}))
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 mongoose.connect(
   'mongodb+srv://switch86:nb@cluster0.lqvjqrw.mongodb.net/?retryWrites=true&w=majority',
@@ -27,6 +29,10 @@ app.use((err, req, res, next) => {
   }
   return res.send({errMsg: err.message})
 })
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(9000, () => {
   console.log(`Server is running on local port 9000`)

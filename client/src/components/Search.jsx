@@ -7,8 +7,8 @@ import "./styles/Search.css"
 
 export default function Search() {
     const {stateCodes, selections, setSelections}  = useContext(SearchContext)
-    const {handleSubmit} = useContext(ParksContext)
-    // const [selections, setSelections] = useState({})
+    const {getSelectedParks} = useContext(ParksContext)
+
     const stateCodeHtml = stateCodes.map((state, index) => {
         return (
                 <option key={index} value={state.abbreviation}>{state.abbreviation} - {state.name}</option>
@@ -27,8 +27,7 @@ export default function Search() {
     }
     function handleClick(e) {
         e.preventDefault()
-        console.log(selections)
-        handleSubmit(selections)
+        getSelectedParks(selections)
     }
     return (
         <div className="Search">

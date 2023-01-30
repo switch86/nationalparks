@@ -15,7 +15,8 @@ authRouter.post("/signup", (req, res, next) => {
         return next(new Error("That username is already taken"))
     }
     const newUser = new User(req.body)
-    console.log(newUser)
+    newUser.favorites = []
+  
     newUser.save((err, savedUser) => {
         if (err) {
             res.status(500)

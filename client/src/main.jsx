@@ -10,13 +10,13 @@ import { ParksProvider } from './components/Context/ParksContext'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ParksProvider>
-        <UserProvider>
+      <UserProvider>
+        <ParksProvider>
           <SearchProvider>
             <App /> 
           </SearchProvider>
-        </UserProvider>
-      </ParksProvider>
+        </ParksProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

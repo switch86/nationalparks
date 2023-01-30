@@ -4,12 +4,16 @@ import Carousel from 'react-bootstrap/Carousel'
 import Image from 'react-bootstrap/Image'
 import { ParksContext } from "./Context/ParksContext"
 import "./styles/Carousel.css"
+import { useEffect } from "react"
 
 
 export default function ImageCarousel() {
     // import parksArray
-    const {parksArray} = useContext(ParksContext)
+    const {parksArray, getAllParks} = useContext(ParksContext)
 
+    useEffect(() => {
+        getAllParks()
+    }, [])
     // controls caption hover effect 
     const [show, setShow] = useState(false)
     function hoverShow() {

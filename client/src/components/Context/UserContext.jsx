@@ -16,11 +16,11 @@ export default function UserProvider(props) {
     const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
     token: localStorage.getItem("token") || "",
-    favorites: []
 }
 
 const [userState, setUserState] = React.useState(initState)
-console.log(userState.user)
+
+// check credentials through signup route and save token and user to local storage
 function signup(credentials) {
     axios.post("http://localhost:9000/auth/signup", credentials) 
         .then(res => {
@@ -34,6 +34,7 @@ function signup(credentials) {
         }))})
         .catch(err => handleAuthErr(err.response.data.errMsg))
     }
+    // send credentials to login route and save token and user to local storage from the response 
     function login(credentials) {
         axios.post("http://localhost:9000/auth/login", credentials) 
             .then(res=> {
@@ -47,67 +48,30 @@ function signup(credentials) {
             }))})
             .catch(err => handleAuthErr(err.response.data.errMsg))     
 }
+    // remove token and user from local storage
     function logout() {
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         setUserState({
             user: {},
-            token: "",
-            parks: []
+            token: ""
         })
     }
+    // if there is an error, add the message to userState 
     const handleAuthErr = (errMsg) => {
         setUserState(prevState => ({
             ...prevState,
             errMsg
         }))
     }
-
+    // remove the error message from userState 
     const resetAuthErr = () => {
         setUserState(prevState => ({
             ...prevState,
             errMsg: ''
         }))
     }
-    // function likePark(newPark) {
-    //     // if (userState.parks.includes(park => park.parkCode === newPark.parkCode)) {
-    //     //     userAxios.put(`http://localhost:9000/api/parks/${newPark.parkCode}`)
-    //     //         .then(res => console.log(res))
-    //     //         .catch(err => console.log(err))
-    //     // } else {
-    //         userAxios.post(`http://localhost:9000/api/parks/`, newPark) 
-    //             .then(res => setUserState(prev => ({
-    //                 ...prev, 
-    //                 parks: [res.data],
-    //                 likes: prev.likes +1,
-    //             })))
-    //             .catch(err => console.log(err))
-    //     }
-        // const getUserParks = () => {
-        //     userAxios.get('http://localhost:9000/api/parks/user')
-        //         .then(res => setUserParks([...res.data]))
-        //         .catch(err => console.log(err.response.data.errMsg))
-        // }    
-    // useEffect(
-    //     function getUserParks() {
-    //     userAxios.get('http://localhost:9000/api/parks/user')
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err))
-    // }, []
-    // )
-    
-    // function saveUserPark(parksArr) {
-    //     if (userState.favorites.includes(parkCode)) {
-    //         userState.favorites.filter(id => id != parkCode)
-    //     } else (userState.favorites.push(parkCode))
-    //     console.log(userState)
-    //     userAxios.post(`http://localhost:9000/api/parks/user/${parkCode}`, userState)
-    //         .then(res => setUserState(prev => ({
-    //             ...prev, 
-    //             favorites: res.data.favorites})))
-    //         .catch(err => console.log(err))
-    // }
-
+   
     return (
         <UserContext.Provider
         value={{
@@ -115,9 +79,8 @@ function signup(credentials) {
             signup,
             login,
             logout,
-            // getUserParks,
-            // saveUserPark,
             resetAuthErr,
+            setUserState
             
         }}>
             {props.children}

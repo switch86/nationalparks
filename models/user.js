@@ -16,12 +16,15 @@ const userSchema = new Schema({
   },
   favorites: {
     type: Array,
-    required: true,
     default : []
   },
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  joined: {
+    type: Date, 
+    default: Date.now
   }
 })
 
