@@ -3,10 +3,6 @@ import { UserContext } from "./Context/UserContext"
 import { Link} from "react-router-dom"
 import "./styles/Header.css"
 
-// import ImageCarousel from "./Carousel";
-
-// import { useHorizontalScroll } from "../assets/useSideScroll"
-
   export default function Header() {
 
     const  {logout} = useContext(UserContext)

@@ -27,7 +27,6 @@ export default function Search() {
     }
     function handleClick(e) {
         e.preventDefault()
-        console.log(selections)
         getSelectedParks(selections)
     }
     return (

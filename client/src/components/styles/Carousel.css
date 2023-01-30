@@ -1,6 +1,7 @@
 /* Image Carousel styles */
 
 .CarouselContainer {
+    align-self: center;
     width: 40rem;
     height: 30rem;
     align-self: center;

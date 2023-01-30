@@ -1,0 +1,32 @@
+
+@media screen and (min-width: 750px) {
+    .Park{
+        display: grid;
+        grid-template-columns: 2fr 4fr 2fr;
+    }
+
+}
+.ParkPage {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background: rgba(236, 236, 236, 0.624);
+    margin: 10px 23vw;
+    border-radius: 10px;
+}
+.parkImage {
+    width: 30vw;
+}
+.bottomSection{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.parkActivities {
+    border-radius: 10px;
+    margin:10px;
+    padding: 10px;
+    background: rgba(236, 236, 236, 0.624);
+}

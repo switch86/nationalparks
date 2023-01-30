@@ -11,26 +11,16 @@ export default function Display(props) {
     const {collection } = props
     
     const {getAllLikedParks, allLikedParks} = useContext(ParksContext)
-    // const {savePark} = useContext(UserContext)
+
     
     useEffect(() => {
         getAllLikedParks()  
           }, [])  
-    
-    // function handleClick(parkCode) {
-    //     console.log(park)
-    //     getPark(parkCode)
-    // }
-    // function handleSave() {
-    //     console.log(park)
-    //     savePark(park)
-    // }
 
         return (
             <div className="Cards">
              {collection.map((park,index) => {
                 let isSaved = allLikedParks.includes(park.parkCode)
-                console.log(isSaved)
                 return (
                     <div key={index}>
                     <DisplayCard

@@ -6,6 +6,7 @@ import React, {createContext, useState, useEffect, useContext} from "react"
 const ParksContext = createContext()
 const userAxios = axios.create()
 
+// interceptor adds token and user from local storage to all userAxios requests
 userAxios.interceptors.request.use(config => {
     const token = localStorage.getItem("token")
     const user = JSON.parse(localStorage.getItem("user"))
@@ -38,14 +39,6 @@ function ParksProvider(props) {
         .then(res => setPark(res.data))
         .catch(error => console.log(error))
       }
-  // // get user parks for savedParks array 
-  // function getParks(parkId) {
-  //   console.log(parkId)
-  //     userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}`)
-  //       .then(res => setSavedParks(prev => [...prev, res.data]))
-  //       .catch(error => console.log(error))
-  //   }
-
   
   // // get Parks Array from nps - these are used in the carousel
   function getAllParks() {
@@ -64,25 +57,26 @@ function ParksProvider(props) {
         })
         .catch(err => console.log(err))
       }
-      //get user liked parks 
+      //get all full park objects the user has liked 
       function getUserLikedParks(){
         userAxios.get(`http://localhost:9000/api/parks/user/`)
           .then(res => setSavedParks(res.data))
           .catch(err => console.log(err))
       }
-  
+      // save a new park to the database 
     function saveUserPark(park) {
         userAxios.post(`http://localhost:9000/api/parks/user/${park.parkCode}`, park)
           .then(res => setPark(res))
           .catch(err => console.log(err))
         }
-
+        //update a park that has already been saved to the database 
     function updateUserPark(park) {
         userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
           .then(res => setPark(res))
           .catch(err => console.log(err))
           
     }
+      // update a when a user unlikes a park
     function removeUserPark(park) {
         userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
           .then(res => console.log(res))

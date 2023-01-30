@@ -21,6 +21,10 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  joined: {
+    type: Date, 
+    default: Date.now
   }
 })
 
