@@ -1,6 +1,6 @@
 import {React, useContext, useEffect} from "react"
 import {UserContext} from "./Context/UserContext"
-import "../components/styles/Display.css"
+import "./styles/Display.css"
 // import "../components/styles/Video.css"
 import { ParksContext } from "./Context/ParksContext"
 import DisplayCard from "./DisplayCard.jsx"
