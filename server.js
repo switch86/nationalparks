@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 mongoose.connect(
-  'mongodb+srv://switch86:nb@cluster0.lqvjqrw.mongodb.net/?retryWrites=true&w=majority',
+  process.env.MONGODB_URI, { useNewUrlParser: true },
   () => console.log('Connected to the DB')
   )
   
