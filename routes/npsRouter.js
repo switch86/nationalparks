@@ -28,26 +28,4 @@ apiRouter.get("/parks/:parkId", (req, res, next) => {
 })
 
 
-
-// if (err) {
-//     res.status(500)
-//     return next(err)
-// } else if (park.length > 0) {
-//     console.log(park)
-//     return res.status(200).send(park)
-// }     
-// const newPark = new Park(
-// newPark.save()
-    
-// apiRouter.get("/parks", (req,res,next) => {
-//     axios.request({
-//         method: "get",
-//         url: baseUrl,
-//         params: {...req.params},
-//         api_key: process.env.KEY
-//     })
-//         .then(res => console.log(res.data))
-//         .catch(err => console.log(err))
-// })
-
 module.exports = apiRouter
