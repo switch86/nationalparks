@@ -7,7 +7,7 @@ const {expressjwt: jwt} = require('express-jwt')
 const cors = require("cors")
 const path = require("path")
 
-app.use(cors({origin: 'http://localhost:5173'}))
+// app.use(cors({origin: 'http://localhost:5173'}))
 app.use(express.json())
 app.use(morgan('dev'))
 
