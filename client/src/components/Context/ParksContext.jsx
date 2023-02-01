@@ -26,7 +26,7 @@ function ParksProvider(props) {
   const getSelectedParks = (selections) => {
     userAxios.request({
       method: "get",
-      url: "http://localhost:9000/nps/",  
+      url: "nps/",  
       params: {...selections}
     })
     .then(res => {setCollection(res.data.data)})
@@ -35,14 +35,14 @@ function ParksProvider(props) {
   
   //get one park from nps route with parkcode 
   function getPark(parkId) {
-      userAxios.get(`http://localhost:9000/nps/parks/${parkId.parkCode}/`)
+      userAxios.get(`/nps/parks/${parkId.parkCode}/`)
         .then(res => setPark(res.data))
         .catch(error => console.log(error))
       }
   
   // // get Parks Array from nps - these are used in the carousel
   function getAllParks() {
-      userAxios.get(`http://localhost:9000/nps/`)
+      userAxios.get(`/nps/`)
               .then(res => {
                 setParksArray(res.data.data)
                 setCollection(res.data.data)
@@ -51,7 +51,7 @@ function ParksProvider(props) {
     }
 // function to get all parks saved in DB
     function getAllLikedParks() {
-      userAxios.get("http://localhost:9000/api/parks/")
+      userAxios.get("/api/parks/")
         .then( res => {
           setAllLikedParks(res.data)
         })
@@ -59,26 +59,26 @@ function ParksProvider(props) {
       }
       //get all full park objects the user has liked 
       function getUserLikedParks(){
-        userAxios.get(`http://localhost:9000/api/parks/user/`)
+        userAxios.get(`/api/parks/user/`)
           .then(res => setSavedParks(res.data))
           .catch(err => console.log(err))
       }
       // save a new park to the database 
     function saveUserPark(park) {
-        userAxios.post(`http://localhost:9000/api/parks/user/${park.parkCode}`, park)
+        userAxios.post(`/api/parks/user/${park.parkCode}`, park)
           .then(res => setPark(res))
           .catch(err => console.log(err))
         }
         //update a park that has already been saved to the database 
     function updateUserPark(park) {
-        userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
+        userAxios.put(`/api/parks/user/${park.parkCode}`)
           .then(res => setPark(res))
           .catch(err => console.log(err))
           
     }
       // update a when a user unlikes a park
     function removeUserPark(park) {
-        userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
+        userAxios.put(`/api/parks/user/${park.parkCode}`)
           .then(res => console.log(res))
           .catch(err => console.log(err))
     }
