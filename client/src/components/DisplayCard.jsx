@@ -14,7 +14,7 @@ export default function DisplayCard(props){
                     <div key={id}  className="Card">
                         <Link to={`/parks/${parkCode}`} >
                             <div key={parkCode} className="imageContainer">
-                                <img className="Image" src={images[0].url}  alt={images[0].description}/>    
+                                <img className="Image" src={images[0]?.url}  alt={images[0]?.description}/>    
                                 <h1 className="Title">{fullName}</h1>
                                 {/* <h3 className="Description" id={parkCode} onClick={() => handleClick(park)}>{images[0].title}</h3> */}
                             </div>
