@@ -3,11 +3,14 @@
     align-items: center;
     display: flex;
     flex-wrap:wrap;
+    flex-direction: column;
 }
 
 .topSection {
     display: flex, 
 }
-/* .bottomSection {
-    display: inline-flex
-} */
+.bottomSection {
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: row;
+}
