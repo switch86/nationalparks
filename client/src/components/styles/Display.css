@@ -1,8 +1,15 @@
-
-.Cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(auto, 200px);
+@media screen and (min-width: 750px) {
+    .Cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(auto, 200px);
+    }
+}
+@media screen and (max-width: 750px) {
+    .Cards {
+        display: flex;
+        flex-direction: column;
+    }
 }
 .Cards * {
     color: black;

@@ -1,12 +1,21 @@
 body * {
   font-family: Arial, Helvetica, sans-serif;
 }
-/* Welcome Page Styles  */
-
 body {
   background-image: url("https://www.nps.gov/common/uploads/structured_data/8DE774D1-CB22-37F2-D826E3F0A73D303A.jpg");
+}
+/* Welcome Page Styles  */
+@media screen and (min-width: 750px) {
+  body { 
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+@media screen and (max-width: 750px) {
+  body { 
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
+  }
 }
 .errMsg {
   color: red

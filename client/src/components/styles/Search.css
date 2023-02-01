@@ -1,15 +1,24 @@
 .Search {
-  margin-top: 2rem;;
-  width: 50%;
+  margin-top: 2rem;
 }.selectionForm {
     display: flex;
     flex-direction: column;
   }
-  .selectionForm input {
-     width: 86%;
+  @media screen and (min-width: 750px) {
+    .Search {
+      width: 50%;
+    }
+    .selectionForm input {
+       width: 86%;
+    }
+    .selectionForm select {
+      width: 95%;
+    }
+  @media screen and (max-width: 750px) {
+    .Search {
+      width: 95%;
+    }
   }
-  .selectionForm select {
-    width: 95%;
   }
   /* .selectionForm select {
     width: 78%
@@ -75,7 +84,7 @@
       /* padding-left: 2rem; */
     }
     .searchButton {
-      width: 200%;
+      width: 50%;
       /* margin-left: 2rem; */
     }
   }
