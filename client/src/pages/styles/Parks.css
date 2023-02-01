@@ -31,7 +31,7 @@
 .parkImage {
     width: 30vw;
 }
-.bottomSection{
+.ParkPage.bottomSection{
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -9,8 +9,17 @@
 .topSection {
     display: flex, 
 }
-.bottomSection {
-    display: flex;
-    flex-wrap:wrap;
-    flex-direction: row;
+
+@media screen and (min-width: 750px) {
+    .bottomSection {
+        flex-wrap:wrap;
+        flex-direction: row;
+        display: flex;
+    }   
+    }
+    @media screen and (max-width: 750px) {
+        .bottomSection{
+        display: flex;
+        flex-direction: column;
+    }
 }

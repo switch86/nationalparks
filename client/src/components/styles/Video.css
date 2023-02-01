@@ -1,4 +1,4 @@
-.videoWindow {
+/* .videoWindow {
     align-self: center;
     width: 75%;
     height: 550px;
@@ -33,7 +33,7 @@
     position: absolute;
     margin-top: 2rem;
     /* top: -1rem; */
-    width: 15rem;
+    /* width: 15rem;
     max-height: 10rem;
 }
 h1 {
@@ -52,4 +52,4 @@ span {
 }
 p{
     padding: 0 1rem;
-}
+} */ 
