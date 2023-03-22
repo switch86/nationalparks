@@ -48,19 +48,20 @@ parkRouter.post("/user/:parkId", async (req, res, next) => {
   if (liked.favorites.includes(req.params.parkId)) {
     //REMOVE PARK FROM USER FAVORITES
     await User.findOneAndUpdate({ _id: req.auth._id}, { $pull: {favorites: req.params.parkId }}, { new: true})
+    await Park.findOneAndUpdate({parkCode: req.params.parkId}, {$pull: {"upVotes":  liked._id}}, {new: true})
   } else {
     await User.findOneAndUpdate({ _id: req.auth._id}, {$addToSet: {"favorites": req.body.parkCode}}, {new:true})
-  }
+    parkItem = await Park.findOneAndUpdate({parkCode: req.body.parkCode}, {$addToSet: {"upVotes":  liked._id}}, {new:true})
+  
   // find the user who made the request, add park to favorites and save it as user
   // const user = await User.findOneAndUpdate({ _id: req.auth._id}, {$addToSet: {"favorites": req.body.parkCode}}, {new:true})
 
   //if there is already a park, add user to favorites save it as parkItem and return
   
-  parkItem = await Park.findOneAndUpdate({parkCode: req.body.parkCode}, {$addToSet: {"upVotes":  liked._id}}, {new:true})
   if (parkItem) {
     return res.status(200).send(parkItem)
   } else {
-   // if there is not a park, request form  
+   // if there is not a park, create one  
   let fullParkObj = {...req.body}
         
   // axios.get(`${baseUrl}?${`parkCode=${req.body.parkCode}&` || ""}${key}`)
@@ -81,8 +82,8 @@ parkRouter.post("/user/:parkId", async (req, res, next) => {
       return res.status(200).send(result)
     })
   }
+}
 })
-
 
 // Update park that has been added
 
