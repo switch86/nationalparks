@@ -11,11 +11,11 @@ import "./styles/Header.css"
     return (
     // <Router>
         <header>
-          <div className="NavBar">
             <h1>United States National Parks</h1>
-            <Link to="/" onClick={logout}>Log Out</Link>  
-            <Link to="/Welcome">Home</Link>
-            <Link to="/Profile">Profile</Link>
+          <div className="NavBar">
+            <Link to="/" onClick={logout}><button>Log Out</button></Link>  
+            <Link to="/Welcome"><button>Home</button></Link>
+            <Link to="/Profile"><button>Profile</button></Link>
           </div>
         </header>
 

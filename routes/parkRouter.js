@@ -97,13 +97,13 @@ parkRouter.post("/user/:parkId", async (req, res, next) => {
 // })
 
 // //Update park that user unlikes
-parkRouter.put("/user/remove/:parkId", async(req, res, next) => {
-  const user = await User.findOneAndUpdate({ _id: req.auth._id}, { $pull: {favorites: req.params.parkId }}, { new: true})
-  const parkItem = await Park.findOneAndUpdate({parkCode: req.params.parkId}, {$pull: {"upVotes":  user._id}}, {new: true})
-  if (!parkItem) { 
-    return next(new Error("unlike failed"))
-  } 
-  return res.status(200).send("updated")
-})
+// parkRouter.put("/user/remove/:parkId", async(req, res, next) => {
+//   const user = await User.findOneAndUpdate({ _id: req.auth._id}, { $pull: {favorites: req.params.parkId }}, { new: true})
+//   const parkItem = await Park.findOneAndUpdate({parkCode: req.params.parkId}, {$pull: {"upVotes":  user._id}}, {new: true})
+//   if (!parkItem) { 
+//     return next(new Error("unlike failed"))
+//   } 
+//   return res.status(200).send("updated")
+// })
 
 module.exports = parkRouter

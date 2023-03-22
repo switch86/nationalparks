@@ -14,7 +14,8 @@ body {
 @media screen and (max-width: 750px) {
   body { 
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
+  background-attachment: fixed;
   }
 }
 .errMsg {
