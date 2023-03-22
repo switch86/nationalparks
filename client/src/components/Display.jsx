@@ -20,7 +20,7 @@ export default function Display(props) {
             <div className="Cards">
              {collection.map((park,index) => {
                 // for each park, mark it as saved if it is in the allLikedParks array
-                // let isSaved = allLikedParks.includes(park.parkCode)
+                let isSaved = allLikedParks.includes(park.parkCode)
                 return (
                     <div key={index}>
                     <DisplayCard
@@ -28,7 +28,7 @@ export default function Display(props) {
                     /> 
                     <Like 
                         {...park}
-                        // isSaved={isSaved} 
+                        isSaved={isSaved} 
                     />
                     </div>
                 )
