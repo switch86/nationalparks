@@ -8,19 +8,19 @@ import Like from "./Like"
 // import Parks from "../pages/Parks"
 
 export default function Display(props) {
-    const {collection } = props
+    const {collection} = props
     
     const {getAllLikedParks, allLikedParks} = useContext(ParksContext)
-
     
     useEffect(() => {
-        getAllLikedParks()  
+        !allLikedParks && getAllLikedParks()  
           }, [])  
 
         return (
             <div className="Cards">
              {collection.map((park,index) => {
-                let isSaved = allLikedParks.includes(park.parkCode)
+                // for each park, mark it as saved if it is in the allLikedParks array
+                // let isSaved = allLikedParks.includes(park.parkCode)
                 return (
                     <div key={index}>
                     <DisplayCard
@@ -28,7 +28,7 @@ export default function Display(props) {
                     /> 
                     <Like 
                         {...park}
-                        isSaved={isSaved} 
+                        // isSaved={isSaved} 
                     />
                     </div>
                 )

@@ -8,12 +8,15 @@ import { useEffect } from "react"
 
 
 export default function ImageCarousel() {
-    // import parksArray
-    const {parksArray, getAllParks} = useContext(ParksContext)
+    const { allLikedParks, collection, getSelectedParks} = useContext(ParksContext)
 
+    
     useEffect(() => {
-        getAllParks()
+        getSelectedParks()
     }, [])
+    
+    console.log(collection)
+
     // controls caption hover effect 
     const [show, setShow] = useState(false)
     function hoverShow() {
@@ -22,29 +25,52 @@ export default function ImageCarousel() {
     const hover = {
         display: show ? "block" : "none"
     }
-
-    // map through parksArray and return a carousel item for each park 
-    const html = parksArray.map(park => {
-    const image = park.images[0]    
-    return (
-        <Carousel.Item key={park.parkCode}>
-            <Link to={`/parks/${park.parkCode}`}>
-                <img 
-                    className="d-block w-100 CarouselImage"
-                    src={image.url}
-                    alt={image.altText}
     
-                    />
-                <Carousel.Caption style={hover}>
-                    {/* <h5>{image.title}</h5> */}
-                        <h4>{park.fullName}</h4>
-                        <span>Photographer Credit: {image.credit}</span>
-                    {/* <p>{image.caption}</p> */}
-                </Carousel.Caption>
-            </Link>
-            </Carousel.Item>
-)    
-})
+    // map through parksArray and return a carousel item for each park 
+    const html = collection.map(park => {
+        // console.log(park)
+        const image = park.images[0]
+        // park.images.map((image,index) => {
+            // console.log(image)
+            return (
+                <Carousel.Item key={`${park.parkCode}`}>
+                    <Link to={`/parks/${park.parkCode}`}>
+                        <img 
+                            className="d-block w-100 CarouselImage"
+                            src={image.url}
+                            alt={image.altText}
+        
+                            />
+                        <Carousel.Caption style={hover}>
+                            {/* <h5>{image.title}</h5> */}
+                                <h4>{park.fullName}</h4>
+                                <span>Photographer Credit: {image.credit}</span>
+                            <p>{image.caption}</p>
+                        </Carousel.Caption>
+                    </Link>
+                    </Carousel.Item>
+        )
+        })
+//     const image = park.images.map(img => img)    
+//     return (
+//         <Carousel.Item key={park.parkCode}>
+//             <Link to={`/parks/${park.parkCode}`}>
+//                 <img 
+//                     className="d-block w-100 CarouselImage"
+//                     src={image.url}
+//                     alt={image.altText}
+    
+//                     />
+//                 <Carousel.Caption style={hover}>
+//                     {/* <h5>{image.title}</h5> */}
+//                         <h4>{park.fullName}</h4>
+//                         <span>Photographer Credit: {image.credit}</span>
+//                     {/* <p>{image.caption}</p> */}
+//                 </Carousel.Caption>
+//             </Link>
+//             </Carousel.Item>
+// )    
+// })
 
 // return carousel with all carousel items from above
 return (

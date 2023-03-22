@@ -7,11 +7,11 @@ const {expressjwt: jwt} = require('express-jwt')
 const cors = require("cors")
 const path = require("path")
 
-// app.use(cors({origin: 'http://localhost:5173'}))
+app.use(cors({origin: 'http://localhost:5173'}))
 app.use(express.json())
 app.use(morgan('dev'))
 
-process.env.SECRET
+const SECRET = process.env.SECRET
 
 mongoose.connect(
   process.env.MONGODB_URI, { useNewUrlParser: true }
@@ -19,7 +19,7 @@ mongoose.connect(
   
   app.use('/auth/', require('./routes/authRouter.js'))
   app.use('/nps/', require('./routes/npsRouter.js'))
-  app.use('/api/', jwt({secret: process.env.SECRET, algorithms: ['HS256']}))
+  app.use('/api/', jwt({secret: SECRET, algorithms: ['HS256']}))
   app.use('/api/parks', require('./routes/parkRouter.js'))
   
   app.use((err, req, res, next) => {

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import axios from "axios"
 
 
@@ -12,7 +12,6 @@ userAxios.interceptors.request.use(config => {
 })
 
 export default function UserProvider(props) {
-
     const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
     token: localStorage.getItem("token") || "",
@@ -22,7 +21,7 @@ const [userState, setUserState] = React.useState(initState)
 
 // check credentials through signup route and save token and user to local storage
 function signup(credentials) {
-    axios.post("/auth/signup", credentials) 
+    axios.post("http://localhost:9000/auth/signup", credentials) 
         .then(res => {
             const {user, token} = res.data
             localStorage.setItem("token", token)
@@ -36,7 +35,7 @@ function signup(credentials) {
     }
     // send credentials to login route and save token and user to local storage from the response 
     function login(credentials) {
-        axios.post("/auth/login", credentials) 
+        axios.post("http://localhost:9000/auth/login", credentials) 
             .then(res=> {
                 const {user, token} = res.data
                 localStorage.setItem("token", token)

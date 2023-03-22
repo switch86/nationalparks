@@ -5,7 +5,11 @@ import {ParksContext} from "../components/Context/ParksContext"
 import "./styles/Welcome.css"
 
 export default function Welcome() {
-    const {collection} = useContext(ParksContext)
+    const {collection, getSelectedParks} = useContext(ParksContext)
+    React.useEffect(() => {
+        getSelectedParks()
+    }, [])
+    
     return (
         <div className="welcome">
             <Search />

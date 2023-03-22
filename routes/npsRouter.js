@@ -9,22 +9,25 @@ const Park = require("../models/park")
 
 
 
-apiRouter.get("/", (req, res, next) => {
+apiRouter.get("/", async (req, res, next) => {
     const {q, stateCode, parkCode} = req.query
-
-    axios.get(`${baseUrl}?${stateCode?`stateCode=${stateCode}&` : ""}${parkCode ? `parkCode=${parkCode}&` : ""}${q? `q=${q}&` : ""}${key}`)
+    await axios.get(`${baseUrl}?${stateCode?`stateCode=${stateCode}&` : ""}${parkCode ? `parkCode=${parkCode}&` : ""}${q? `q=${q}&` : ""}${key}`)
         .then ((parks) => res.json(parks.data))
         .catch (err => next(err))
 })
 
 
         
-apiRouter.get("/parks/:parkId", (req, res, next) => {
-    Park.find({parkCode: req.params.parkId}, (err, park) => {
-        axios.get(`${baseUrl}?${`parkCode=${req.params.parkId}&` || ""}${key}`)
-        .then ((parks) => res.json(parks.data.data[0]))
+apiRouter.get("/parks/:parkId", async(req, res, next) => {
+    const park = await Park.findOne({parkCode: req.params.parkId})
+    if (park) {
+        console.log("park: " + park)
+        res.json(park)
+    } else {
+        await axios.get(`${baseUrl}?${`parkCode=${req.params.parkId}&`}${key}`)
+        .then ((npsres) => res.send(npsres.data.data[0]))
         .catch (err => next(err))
-    })
+    }
 })
 
 

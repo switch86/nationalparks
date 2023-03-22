@@ -1,33 +1,33 @@
-import {useParams} from "react-router-dom"
-import {useContext, useState} from "react"
+import {useParams, useLocation} from "react-router-dom"
+import {useContext} from "react"
 import { ParksContext } from "../components/Context/ParksContext"
 import  Like  from "../components/Like"
 import { useEffect } from "react"
 import "./styles/Parks.css"
 
-export default function Parks() {
+const Parks = (props) => {
 
     //change park from useContext to useParams so it stays when the page refreshes. 
+    const {park, getPark} = useContext(ParksContext)
+    console.log(park)
+    
     const {parkId} = useParams()
-    const {getPark, park} = useContext(ParksContext)
-   
     const parkCode = {parkCode: parkId}
+    
     // if park doesn't exist on page load, run get park with the parkCode from useParams. 
     useEffect(() => {
-        // if (!park) {
             getPark(parkCode)
-        // }  
     }, [])
-    
+
     return (
         // if there is a park, return this page. 
-    park && 
+    park ? 
     <div className="Park">
         <div className="ParkPage">
             <h1 className="parkName">{park.fullName}</h1>
             
             <img className="parkImage" src={park.images[0].url} alt={park.images[0].alt || ""}/>
-            <Like />    
+            <Like {...park}/>    
                 <div className="bottomSection">
 
                     <p>{park.description}</p>
@@ -42,5 +42,11 @@ export default function Parks() {
                             </ul>
                     </div>
     </div>
+    : 
+    <>
+    <p>There is no park</p>
+    </>
     )
 }
+
+export default Parks

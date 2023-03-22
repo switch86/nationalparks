@@ -16,40 +16,44 @@ userAxios.interceptors.request.use(config => {
 })
 function ParksProvider(props) {
   // set state for image carousel park and collection 
-  const [parksArray, setParksArray] = useState([])
+  // const [parksArray, setParksArray] = useState([])
   const [park, setPark] = useState()
   const [collection, setCollection] = useState([])
   const [savedParks, setSavedParks] = useState([])
   const [allLikedParks, setAllLikedParks] = useState([])
 
+  // // get Parks Array from nps - these are used in the carousel
+  // function getAllParks() {
+  //     parksArray.length === 0 &&
+  //     userAxios.get(`http://localhost:9000/nps/`)
+  //             .then(res => {
+  //               setCollection(res.data.data)
+  //             })
+  //             .catch(err => console.log(err))
+  //   }
 // get parks based on parameters saved in selections 
   const getSelectedParks = (selections) => {
     userAxios.request({
       method: "get",
-      url: "nps/",  
+      url: "/nps/",  
       params: {...selections}
     })
-    .then(res => {setCollection(res.data.data)})
+    .then(res => {
+      setCollection(res.data.data)
+    })
     .catch(error => console.dir(error))
-  }
-  
+  } 
   //get one park from nps route with parkcode 
   function getPark(parkId) {
       userAxios.get(`/nps/parks/${parkId.parkCode}/`)
-        .then(res => setPark(res.data))
+        .then(res => {
+          // console.log(res.data)
+          setPark(res.data)
+          // console.log(park)
+        })
         .catch(error => console.log(error))
       }
-  
-  // // get Parks Array from nps - these are used in the carousel
-  function getAllParks() {
-      userAxios.get(`/nps/`)
-              .then(res => {
-                setParksArray(res.data.data)
-                setCollection(res.data.data)
-              })
-              .catch(err => console.log(err))
-    }
-// function to get all parks saved in DB
+//get all parks saved in mongoDB
     function getAllLikedParks() {
       userAxios.get("/api/parks/")
         .then( res => {
@@ -57,7 +61,7 @@ function ParksProvider(props) {
         })
         .catch(err => console.log(err))
       }
-      //get all full park objects the user has liked 
+      //get all full park objects the user has liked from mongoDB 
       function getUserLikedParks(){
         userAxios.get(`/api/parks/user/`)
           .then(res => setSavedParks(res.data))
@@ -66,27 +70,27 @@ function ParksProvider(props) {
       // save a new park to the database 
     function saveUserPark(park) {
         userAxios.post(`/api/parks/user/${park.parkCode}`, park)
-          .then(res => setPark(res))
+          .then(res => setPark(res.data))
           .catch(err => console.log(err))
         }
         //update a park that has already been saved to the database 
-    function updateUserPark(park) {
-        userAxios.put(`/api/parks/user/${park.parkCode}`)
-          .then(res => setPark(res))
-          .catch(err => console.log(err))
+    // function updateUserPark(park) {
+    //     userAxios.put(`http://localhost:9000/api/parks/user/${park.parkCode}`)
+    //       .then(res => setPark(res))
+    //       .catch(err => console.log(err))
           
-    }
+    // }
       // update a when a user unlikes a park
-    function removeUserPark(park) {
-        userAxios.put(`/api/parks/user/${park.parkCode}`)
-          .then(res => console.log(res))
-          .catch(err => console.log(err))
-    }
+    // function removeUserPark(park) {
+    //     userAxios.put(`http://localhost:9000/api/parks/user/remove/${park.parkCode}`)
+    //       .then(res => console.log(res))
+    //       .catch(err => console.log(err))
+    // }
   
     return (
       <>
         <ParksContext.Provider value={{
-          parksArray,
+          // parksArray,
           collection,
           savedParks,
           allLikedParks,
@@ -94,12 +98,12 @@ function ParksProvider(props) {
           setPark,
           getSelectedParks,
           saveUserPark,
-          removeUserPark,
-          updateUserPark,
+          // removeUserPark,
+          // updateUserPark,
           getAllLikedParks,
           getUserLikedParks,
           getPark,
-          getAllParks, 
+          // getAllParks, 
         }}>
           {props.children}
         </ParksContext.Provider>
