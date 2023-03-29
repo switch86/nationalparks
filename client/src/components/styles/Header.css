@@ -4,7 +4,7 @@ header {
     background: rgba(100, 29, 29, 0.273);
     /* border: 2px black solid; */
   }
-  header button, header a {
+  header button{
     padding: 1em;
     margin: 20px 0px;
     color: black;
