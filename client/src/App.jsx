@@ -28,7 +28,9 @@ function App(props) {
               element={              
                 <ProtectedRoute token={token} redirectTo="/">
                   <Parks />
-                </ProtectedRoute>}>
+                </ProtectedRoute>
+              }
+            >
           </Route>
           <Route 
               path="/welcome" 
