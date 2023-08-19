@@ -5,7 +5,6 @@ import Header from "./components/Header"
 import Profile from "./pages/Profile"
 import Parks from "./pages/Parks"
 import Welcome from "./pages/Welcome"
-// import Video from "./pages/Video"
 import Auth from "./pages/Auth"
 import ProtectedRoute from "./components/ProtectedRoute"
 import './App.css';
